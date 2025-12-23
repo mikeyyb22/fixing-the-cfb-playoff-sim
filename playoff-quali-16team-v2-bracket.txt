@@ -1,0 +1,64 @@
+Bracket Rounds:
+
+Play-in:
+#20 @ #13
+#19 @ #14
+#18 @ #15
+#17 @ #16
+
+Round 1:
+#20/13 @ #1
+#19/#14 @ #2
+#18/#15 @ #3
+#17/#16 @ #4
+#12 @ #5
+#11 @ #6
+#10 @ #7
+#9 @ #8
+
+Round #2:
+Peach Bowl: #1/20/13 vs. #9/8
+Cotton Bowl: #2/19/14 vs. #10/7
+Fiesta Bowl: #3/18/15 vs. #11/6
+Sugar Bowl: #4/17/16 vs. #12/5
+
+Round #3:
+Rose Bowl: #1/20/13/9/8 vs. #4/5/12/16/17
+Orange Bowl: #2/7/10/14/19 vs. #3/6/11/15/18
+
+Round #4:
+National Championship
+
+!--2025 Bracket--!
+
+Play-in:
+Tulane @ Texas
+UVA @ Vandy
+Michigan @ Utah
+Arizona @ USC
+
+Round 1:
+Tulane/Texas @ Indiana
+UVA/Vandy @ OSU
+Michigan/Utah @ UGA
+Arizona/USC @ TTU
+BYU @ Oregon
+ND @ Ole Miss
+Miami @ TAMU
+Bama @ OU
+
+Round #2:
+Peach Bowl: Tulane/Texas/Indiana vs. Bama/OU
+Cotton Bowl: OSU/UVA/Vandy vs. Miami/TAMU
+Fiesta Bowl: UGA/Michigan/Utah vs. Ole Miss/ND
+Sugar Bowl: TTU/Arizona/USC vs. BYU/Oregon
+
+Round #3:
+Rose Bowl: Tulane/Texas/Indiana/Bama/OU vs. TTU/Arizona/USC/BYU/Oregon
+Orange Bowl: OSU/UVA/Vandy/Miami/TAMU vs. UGA/Michigan/Utah/Ole Miss/ND
+
+Round #4:
+National Championship
+
+
+
