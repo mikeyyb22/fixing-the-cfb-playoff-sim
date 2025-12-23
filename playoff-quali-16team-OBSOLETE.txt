@@ -1,0 +1,92 @@
+~ Prioritize Conference Champions ~
+1. SEC Champion or Notre Dame (Bye)
+2. B1G Champion or Notre Dame (Bye)
+3. ACC Champion or Notre Dame (Bye)
+4. XII Champion or Notre Dame (Bye)
+5. P4 Champion (if Notre Dame higher ranked)
+    a. If neither ND nor P4 Champ, then highest ranked P4 runner-up
+6. Highest Ranked G6 Champion
+7. 2nd Highest Ranked G6 Champion
+8. At-Large
+9. At-Large
+10. At-Large
+11. At-Large
+12. At-Large
+13. At-Large
+14. At-Large
+15. At-Large
+16. G6 play-in Champion*
+
+*Highest ranked G6 teams not the top 2 champions will play-in to determine 16th seed
+
+!--2025 Playoff Example--!
+1. UGA
+2. IU
+3. ND
+4. TTU
+5. Duke
+6. Tulane
+7. JMU
+8. Oregon
+9. Ole Miss
+10. TAMU 
+11. OU
+12. Alabama
+13. Miami
+14. BYU
+15. Texas
+16. Navy vs. UNT
+
+!--2019 Playoff Example--!
+1. LSU
+2. OSU
+3. Clemson
+4. Oklahoma
+5. Oregon
+6. Memphis
+7. Boise State
+8. UGA
+9. Oregon
+10. Baylor
+11. Wisconsin
+12. Florida
+13. PSU
+14. Utah
+15. Auburn
+16. App State vs. Cincy
+
+!--2014 Playoff Example--!
+1. Alabama
+2. OSU
+3. FSU
+4. TCU
+5. Oregon
+6. BSU
+7. Marshall
+8. Baylor
+9. MSST
+10. MSU
+11. Ole Miss
+12. Arizona
+13. KSU
+14. GT
+15. UGA
+16. Memphis vs. CSU
+
+!--2009 Playoff Example--!
+1. Alabama
+2. Ohio State
+3. Georgia Tech
+4. Texas
+5. Oregon
+6. Cincy
+7. TCU
+8. Florida
+9. BSU
+10. Iowa
+11. Virginia Tech
+12. LSU
+13. PSU
+14. BYU
+15. Miami
+16. WVU vs. Pitt

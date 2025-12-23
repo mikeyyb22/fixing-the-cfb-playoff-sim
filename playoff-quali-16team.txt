@@ -1,92 +1,84 @@
-~ Prioritize Conference Champions ~
-1. SEC Champion or Notre Dame (Bye)
-2. B1G Champion or Notre Dame (Bye)
-3. ACC Champion or Notre Dame (Bye)
-4. XII Champion or Notre Dame (Bye)
-5. P4 Champion (if Notre Dame higher ranked)
-    a. If neither ND nor P4 Champ, then highest ranked P4 runner-up
-6. Highest Ranked G6 Champion
-7. 2nd Highest Ranked G6 Champion
-8. At-Large
-9. At-Large
-10. At-Large
-11. At-Large
-12. At-Large
-13. At-Large
-14. At-Large
-15. At-Large
-16. G6 play-in Champion*
-
-*Highest ranked G6 teams not the top 2 champions will play-in to determine 16th seed
+~ Rules ~
+-- Top 12 teams automatically qualify
+-- Next 8 teams have play-in to see who fills next 4 spots
 
 !--2025 Playoff Example--!
-1. UGA
-2. IU
-3. ND
+1. Indiana
+2. OSU
+3. UGA
 4. TTU
-5. Duke
-6. Tulane
-7. JMU
-8. Oregon
-9. Ole Miss
-10. TAMU 
-11. OU
-12. Alabama
-13. Miami
-14. BYU
-15. Texas
-16. Navy vs. UNT
+5. Oregon
+6. Ole Miss
+7. TAMU
+8. OU
+9. Bama
+10. Miami
+11. ND
+12. BYU
+
+Play-ins: 
+1. Texas vs. Tulane
+2. Vandy vs. UVA
+3. Utah vs. Michigan
+4. USC vs. Arizona
 
 !--2019 Playoff Example--!
 1. LSU
 2. OSU
 3. Clemson
-4. Oklahoma
-5. Oregon
-6. Memphis
-7. Boise State
-8. UGA
-9. Oregon
-10. Baylor
-11. Wisconsin
-12. Florida
-13. PSU
-14. Utah
-15. Auburn
-16. App State vs. Cincy
+4. OU
+5. UGA
+6. Oregon
+7. Baylor
+8. Wisconsin
+9. Florida
+10. PSU
+11. Utah
+12. Auburn
+
+Play-ins:
+1. Alabama vs. App State
+2. Michigan vs. BSU
+3. ND vs. Minnesota
+4. Iowa vs. Memphis
 
 !--2014 Playoff Example--!
-1. Alabama
-2. OSU
+1. Bama
+2. Oregon
 3. FSU
-4. TCU
-5. Oregon
-6. BSU
-7. Marshall
-8. Baylor
-9. MSST
-10. MSU
-11. Ole Miss
-12. Arizona
-13. KSU
-14. GT
-15. UGA
-16. Memphis vs. CSU
+4. OSU
+5. Baylor
+6. TCU
+7. MSST
+8. MSU
+9. Ole Miss
+10. Arizona
+11. KSU
+12. GT
+
+Play-ins:
+1. UGA vs. BSU
+2. UCLA vs. Auburn
+3. ASU vs. Wisconsin
+4. Mizzou vs. Clemson
 
 !--2009 Playoff Example--!
-1. Alabama
-2. Ohio State
-3. Georgia Tech
-4. Texas
-5. Oregon
-6. Cincy
-7. TCU
-8. Florida
-9. BSU
+1. Bama
+2. Texas
+3. Cincy
+4. TCU
+5. Florida
+6. BSU
+7. Oregon
+8. OSU
+9. Georgia Tech
 10. Iowa
-11. Virginia Tech
+11. VT
 12. LSU
-13. PSU
-14. BYU
-15. Miami
-16. WVU vs. Pitt
+
+Play-ins: 
+1. PSU vs. Arizona
+2. BYU vs. Oklahoma State
+3. Miami vs. Oregon State
+4. WVU vs. Pitt
+
