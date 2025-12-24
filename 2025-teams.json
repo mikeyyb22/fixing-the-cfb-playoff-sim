@@ -3,6 +3,7 @@
         {
             "teamname": "Indiana Hoosiers",
             "conference": "B1G",
+            "nameabbr": "IU",
             "seed": 1,
             "alltimegames": 1290,
             "alltimewins": 525,
@@ -21,9 +22,10 @@
             "sos": 28
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Ohio State Buckeyes",
+            "conference": "B1G",
+            "nameabbr": "OSU",
+            "seed": 2,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -40,9 +42,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Georgia Bulldogs",
+            "conference": "SEC",
+            "nameabbr": "UGA",
+            "seed": 3,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -59,9 +62,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Texas Tech Red Raiders",
+            "conference": "XII",
+            "nameabbr": "TTU",
+            "seed": 4,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -78,9 +82,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Oregon Ducks",
+            "conference": "B1G",
+            "nameabbr": "ORE",
+            "seed": 5,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -97,9 +102,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Ole Miss Rebels",
+            "conference": "SEC",
+            "nameabbr": "Ole Miss",
+            "seed": 6,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -116,9 +122,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Texas A&M Aggies",
+            "conference": "SEC",
+            "nameabbr": "TAMU",
+            "seed": 7,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -135,9 +142,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Oklahoma Sooners",
+            "conference": "SEC",
+            "nameabbr": "OU",
+            "seed": 8,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -154,9 +162,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Alabama Crimson Tide",
+            "conference": "SEC",
+            "nameabbr": "Bama",
+            "seed": 9,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -173,9 +182,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Miami Hurricanes",
+            "conference": "ACC",
+            "nameabbr": "Miami",
+            "seed": 10,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -192,9 +202,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Notre Dame Fighting Irish",
+            "conference": "Independent",
+            "nameabbr": "ND",
+            "seed": 11,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -211,9 +222,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Brigham Young University Cougars",
+            "conference": "XII",
+            "nameabbr": "BYU",
+            "seed": 12,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -230,9 +242,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Texas Longhorns",
+            "conference": "SEC",
+            "nameabbr": "Texas",
+            "seed": 13,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -249,9 +262,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Vanderbilt Commodores",
+            "conference": "SEC",
+            "nameabbr": "Vandy",
+            "seed": 14,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -268,9 +282,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Utah Utes",
+            "conference": "XII",
+            "nameabbr": "Utah",
+            "seed": 15,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
