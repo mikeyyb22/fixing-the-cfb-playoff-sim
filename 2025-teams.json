@@ -302,9 +302,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "USC Trojans",
+            "conference": "B1G",
+            "nameabbr": "USC",
+            "seed": 16,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -321,9 +322,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Arizona Wildcats",
+            "conference": "XII",
+            "nameabbr": "Arizona",
+            "seed": 17,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -340,9 +342,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Michigan Wolverines",
+            "conference": "B1G",
+            "nameabbr": "Michigan",
+            "seed": 18,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -359,9 +362,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Virginia Cavaliers",
+            "conference": "ACC",
+            "nameabbr": "UVA",
+            "seed": 19,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
@@ -378,9 +382,10 @@
             "sos": 0
         },
         {
-            "teamname": "",
-            "conference": "",
-            "seed": 0,
+            "teamname": "Tulane Green Wave",
+            "conference": "AAC",
+            "nameabbr": "Tulane",
+            "seed": 20,
             "alltimegames": 0,
             "alltimewins": 0,
             "natchamp": 0,
