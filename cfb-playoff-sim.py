@@ -14,7 +14,7 @@ def win_pctg_calc(teams):
     games = 0
     pctg = 0.0
     x = 1
-    for team in teams["teams"]:
+    for team in teams["teams"]:     #Has problem when 1 is called in previous menu
         wins = int(team["alltimewins"])
         games = int(team["alltimegames"])
         pctg = str(round((wins / games), 3) * 100)
@@ -36,7 +36,7 @@ def win_pctg(teams):
     totalwins = {}
     winpctg_menu = True
     x = 1
-    
+
     for team in teams["teams"]:
         totalwins.update({team["alltimewins"]: team["teamname"]})
     totalwinssorted = dict(sorted(totalwins.items(), reverse=True))
