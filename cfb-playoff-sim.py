@@ -14,7 +14,8 @@ def win_pctg_calc(teams):
     games = 0
     pctg = 0.0
     x = 1
-    for team in teams["teams"]:     #Has problem when 1 is called in previous menu
+
+    for team in teams["teams"]:
         wins = int(team["alltimewins"])
         games = int(team["alltimegames"])
         pctg = str(round((wins / games), 3) * 100)
@@ -26,8 +27,8 @@ def win_pctg_calc(teams):
         winpctg.update({rounded_pctg: team["teamname"]})
     
     pctg_sorted = dict(sorted(winpctg.items(), reverse=True))
-    for wins, teams in pctg_sorted.items():
-                print(f'{x}. {teams}: {wins}% win rate')
+    for wins, seeds in pctg_sorted.items():
+                print(f'{x}. {seeds}: {wins}% win rate')
                 x = x + 1
 
     return
@@ -48,8 +49,8 @@ def win_pctg(teams):
         pctg_input = int(input(f'Please choose from the above options: '))
 
         if (pctg_input == 1):
-            for wins, teams in totalwinssorted.items():
-                print(f'{x}. {teams}: {wins} wins')
+            for wins, seeds in totalwinssorted.items():
+                print(f'{x}. {seeds}: {wins} wins')
                 x = x + 1
             continue
         if (pctg_input == 2):
