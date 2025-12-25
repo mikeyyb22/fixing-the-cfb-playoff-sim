@@ -1,8 +1,3 @@
-### FIX HOW NEW DICTIONARIES ARE SORTED
-#### KEY NEEDS TO BE TEAM NAME TO PREVENT DUPLICATES
-##### SEE PASS YD/GAME --> BYU AND GEORGIA HAVE SAME AVG
-
-
 import json
 import decimal
 user_menu = True
@@ -29,10 +24,10 @@ def win_pctg_calc(teams):
 
         rounded_pctg = pctg.quantize(round_help, rounding=decimal.ROUND_HALF_UP)
 
-        winpctg.update({rounded_pctg: team["teamname"]})
+        winpctg.update({team["teamname"]: rounded_pctg})
     
     pctg_sorted = dict(sorted(winpctg.items(), reverse=True))
-    for wins, seeds in pctg_sorted.items():
+    for seeds, wins in pctg_sorted.items():
                 print(f'{x}. {seeds}: {wins}% win rate')
                 x = x + 1
 
@@ -44,7 +39,7 @@ def win_pctg(teams):
     x = 1
 
     for team in teams["teams"]:
-        totalwins.update({team["alltimewins"]: team["teamname"]})
+        totalwins.update({team["teamname"]: team["alltimewins"]})
 
     totalwinssorted = dict(sorted(totalwins.items(), reverse=True))
 
@@ -55,7 +50,7 @@ def win_pctg(teams):
         pctg_input = int(input(f'Please choose from the above options: '))
 
         if (pctg_input == 1):
-            for wins, seeds in totalwinssorted.items():
+            for seeds, wins in totalwinssorted.items():
                 print(f'{x}. {seeds}: {wins} wins')
                 x = x + 1
             continue
@@ -72,12 +67,12 @@ def off_ppg(teams):
     x = 1
 
     for team in teams["teams"]:
-        ppg.update({team["offppg"]: team["teamname"]})
+        ppg.update({team["teamname"]: team["offppg"]}) 
 
     ppgsorted = dict(sorted(ppg.items(), reverse=True))
 
-    for wins, seeds in ppgsorted.items():
-        print(f'{x}. {seeds}: {wins} ppg')
+    for seeds, points in ppgsorted.items():
+        print(f'{x}. {seeds}: {points} ppg')
         x = x + 1
 
     return
@@ -98,11 +93,11 @@ def off_yds(teams):
 
         if(yds_input == 1):
             for team in teams["teams"]:
-                total_yds.update({team["offypg"]: team["teamname"]})
+                total_yds.update({team["teamname"]: team["offypg"]})
 
             totalydssorted = dict(sorted(total_yds.items(), reverse=True))
 
-            for yards, seeds in totalydssorted.items():
+            for seeds, yards in totalydssorted.items():
                 print(f'{x}. {seeds}: {yards} total yards per game')
                 x = x + 1
 
@@ -110,23 +105,23 @@ def off_yds(teams):
             continue
         if(yds_input == 2):
             for team in teams["teams"]:
-                rush_yds.update({team["rushydgame"]: team["teamname"]})
+                rush_yds.update({team["teamname"]: team["rushydgame"]})
 
             rushydssorted = dict(sorted(rush_yds.items(), reverse=True))
 
-            for yards, seeds in rushydssorted.items():
+            for seeds, yards in rushydssorted.items():
                 print(f'{x}. {seeds}: {yards} rushing yards per game')
                 x = x + 1
 
             x = 1
             continue
-        if(yds_input == 3): #only printing 19 teams
+        if(yds_input == 3):
             for team in teams["teams"]:
-                pass_yds.update({team["passydgame"]: team["teamname"]})
+                pass_yds.update({team["teamname"]: team["passydgame"]})
 
             passydssorted = dict(sorted(pass_yds.items(), reverse=True))
 
-            for yards, seeds in passydssorted.items():
+            for seeds, yards in passydssorted.items():
                 print(f'{x}. {seeds}: {yards} passing yards per game')
                 x = x + 1
 
