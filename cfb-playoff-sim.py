@@ -1,17 +1,38 @@
 import json
 user_menu = True
+winpctg_menu = True
 
 def read_json():
     with open('2025-teams.json') as f:
         d = json.load(f)
         # print(d)
     return d
+
+def win_pctg_calc(totalwins):
+    for wins, teams in totalwinssorted.items():
+        break
     
 def win_pctg(teams):
-    totalwins = []
+    totalwins = {}
+    x = 1
     for team in teams["teams"]:
-        # print(f'{team["teamname"]}: {team["alltimewins"]}')
-        print('Placeholder')
+        totalwins.update({team["alltimewins"]: team["teamname"]})
+    totalwinssorted = dict(sorted(totalwins.items(), reverse=True))
+
+    while winpctg_menu == True:
+        print(f'1. Total wins')
+        print(f'2. Win percentage')
+        print(f'3. Back')
+        pctg_input = int(input(f'Please choose from the above options: '))
+
+        if (pctg_input == 1):
+            for wins, teams in totalwinssorted.items():
+                print(f'{x}. {teams}: {wins} wins')
+                x = x + 1
+            continue
+        if (pctg_input == 2):
+            win_pctg_calc(totalwinssorted)
+        
     return
 
 # def team_performance():
