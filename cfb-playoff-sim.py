@@ -1,6 +1,6 @@
 import json
+import decimal
 user_menu = True
-winpctg_menu = True
 
 def read_json():
     with open('2025-teams.json') as f:
@@ -8,13 +8,35 @@ def read_json():
         # print(d)
     return d
 
-def win_pctg_calc(totalwins):
-    for wins, teams in totalwinssorted.items():
-        break
+def win_pctg_calc(teams):
+    winpctg = {}
+    wins = 0
+    games = 0
+    pctg = 0.0
+    x = 1
+    for team in teams["teams"]:
+        wins = int(team["alltimewins"])
+        games = int(team["alltimegames"])
+        pctg = str(round((wins / games), 3) * 100)
+        round_help = decimal.Decimal("0.1")
+        pctg = decimal.Decimal(pctg)
+
+        rounded_pctg = pctg.quantize(round_help, rounding=decimal.ROUND_HALF_UP)
+
+        winpctg.update({rounded_pctg: team["teamname"]})
+    
+    pctg_sorted = dict(sorted(winpctg.items(), reverse=True))
+    for wins, teams in pctg_sorted.items():
+                print(f'{x}. {teams}: {wins}% win rate')
+                x = x + 1
+
+    return
     
 def win_pctg(teams):
     totalwins = {}
+    winpctg_menu = True
     x = 1
+    
     for team in teams["teams"]:
         totalwins.update({team["alltimewins"]: team["teamname"]})
     totalwinssorted = dict(sorted(totalwins.items(), reverse=True))
@@ -31,7 +53,10 @@ def win_pctg(teams):
                 x = x + 1
             continue
         if (pctg_input == 2):
-            win_pctg_calc(totalwinssorted)
+            win_pctg_calc(teams)
+            continue
+        else:
+            winpctg_menu = False
         
     return
 
@@ -55,6 +80,7 @@ while user_menu == True:
 
     if (user_input == 1):
         win_pctg(playoff_teams)
+        continue
     if (user_input == 2):
         break
     if (user_input == 3):
@@ -65,10 +91,9 @@ while user_menu == True:
         break
     if (user_input == 6):
         break
-    if (user_input == 7):
+    else:
         user_menu = False
     
-    user_menu = False
 
 #TO-DO - READ JSON AND SORT TEAMS BY STATISTIC
 #TO-DO - FACTOR HOME/AWAY STATS (?)
