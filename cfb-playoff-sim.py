@@ -1,3 +1,5 @@
+## SORTING ERROR
+
 import json
 import decimal
 user_menu = True
@@ -26,7 +28,9 @@ def win_pctg_calc(teams):
 
         winpctg.update({team["teamname"]: rounded_pctg})
     
-    pctg_sorted = dict(sorted(winpctg.items(), reverse=True))
+    pctg_sorted_items = sorted(winpctg.items(), key=lambda item: item[1], reverse=True)
+    pctg_sorted = dict(pctg_sorted_items)
+
     for seeds, wins in pctg_sorted.items():
                 print(f'{x}. {seeds}: {wins}% win rate')
                 x = x + 1
@@ -41,7 +45,8 @@ def win_pctg(teams):
     for team in teams["teams"]:
         totalwins.update({team["teamname"]: team["alltimewins"]})
 
-    totalwinssorted = dict(sorted(totalwins.items(), reverse=True))
+    totalwins_sorted_items = sorted(totalwins.items(), key=lambda item: item[1], reverse=True)
+    totalwins_sorted = dict(totalwins_sorted_items)
 
     while winpctg_menu == True:
         print(f'1. Total Wins')
@@ -50,7 +55,7 @@ def win_pctg(teams):
         pctg_input = int(input(f'Please choose from the above options: '))
 
         if (pctg_input == 1):
-            for seeds, wins in totalwinssorted.items():
+            for seeds, wins in totalwins_sorted.items():
                 print(f'{x}. {seeds}: {wins} wins')
                 x = x + 1
             continue
@@ -69,9 +74,10 @@ def off_ppg(teams):
     for team in teams["teams"]:
         ppg.update({team["teamname"]: team["offppg"]}) 
 
-    ppgsorted = dict(sorted(ppg.items(), reverse=True))
+    ppg_sorted_items = sorted(ppg.items(), key=lambda item: item[1], reverse=True)
+    ppg_sorted = dict(ppg_sorted_items)
 
-    for seeds, points in ppgsorted.items():
+    for seeds, points in ppg_sorted.items():
         print(f'{x}. {seeds}: {points} ppg')
         x = x + 1
 
@@ -95,9 +101,10 @@ def off_yds(teams):
             for team in teams["teams"]:
                 total_yds.update({team["teamname"]: team["offypg"]})
 
-            totalydssorted = dict(sorted(total_yds.items(), reverse=True))
+            totalyds_sorted_items = sorted(total_yds.items(), key=lambda item: item[1], reverse=True)
+            totalyds_sorted = dict(totalyds_sorted_items)
 
-            for seeds, yards in totalydssorted.items():
+            for seeds, yards in totalyds_sorted.items():
                 print(f'{x}. {seeds}: {yards} total yards per game')
                 x = x + 1
 
@@ -107,9 +114,10 @@ def off_yds(teams):
             for team in teams["teams"]:
                 rush_yds.update({team["teamname"]: team["rushydgame"]})
 
-            rushydssorted = dict(sorted(rush_yds.items(), reverse=True))
+            rushyds_sorted_items = sorted(rush_yds.items(), key=lambda item: item[1], reverse=True)
+            rushyds_sorted = dict(rushyds_sorted_items)
 
-            for seeds, yards in rushydssorted.items():
+            for seeds, yards in rushyds_sorted.items():
                 print(f'{x}. {seeds}: {yards} rushing yards per game')
                 x = x + 1
 
@@ -119,9 +127,10 @@ def off_yds(teams):
             for team in teams["teams"]:
                 pass_yds.update({team["teamname"]: team["passydgame"]})
 
-            passydssorted = dict(sorted(pass_yds.items(), reverse=True))
+            passyds_sorted_items = sorted(pass_yds.items(), key=lambda item: item[1], reverse=True)
+            passyds_sorted = dict(passyds_sorted_items)
 
-            for seeds, yards in passydssorted.items():
+            for seeds, yards in passyds_sorted.items():
                 print(f'{x}. {seeds}: {yards} passing yards per game')
                 x = x + 1
 
@@ -158,7 +167,7 @@ while user_menu == True:
         continue
     if (user_input == 3):
         off_yds(playoff_teams_2025)
-        break
+        continue
     if (user_input == 4):
         break
     if (user_input == 5):
