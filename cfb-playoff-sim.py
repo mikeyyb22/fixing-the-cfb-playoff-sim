@@ -40,11 +40,12 @@ def win_pctg(teams):
 
     for team in teams["teams"]:
         totalwins.update({team["alltimewins"]: team["teamname"]})
+
     totalwinssorted = dict(sorted(totalwins.items(), reverse=True))
 
     while winpctg_menu == True:
-        print(f'1. Total wins')
-        print(f'2. Win percentage')
+        print(f'1. Total Wins')
+        print(f'2. Win Percentage')
         print(f'3. Back')
         pctg_input = int(input(f'Please choose from the above options: '))
 
@@ -61,30 +62,102 @@ def win_pctg(teams):
         
     return
 
+def off_ppg(teams):
+    ppg = {}
+    x = 1
+
+    for team in teams["teams"]:
+        ppg.update({team["offppg"]: team["teamname"]})
+
+    ppgsorted = dict(sorted(ppg.items(), reverse=True))
+
+    for wins, seeds in ppgsorted.items():
+        print(f'{x}. {seeds}: {wins} ppg')
+        x = x + 1
+
+    return
+
+def off_yds(teams):
+    total_yds = {}
+    rush_yds = {}
+    pass_yds = {}
+    yds_menu = True
+    x = 1
+
+    while yds_menu == True:
+        print(f'1. Total Yards')
+        print(f'2. Rush Yards')
+        print(f'3. Pass Yards')
+        print(f'4. Back')
+        yds_input = int(input(f'Please choose from the above options: '))
+
+        if(yds_input == 1):
+            for team in teams["teams"]:
+                total_yds.update({team["offypg"]: team["teamname"]})
+
+            totalydssorted = dict(sorted(total_yds.items(), reverse=True))
+
+            for yards, seeds in totalydssorted.items():
+                print(f'{x}. {seeds}: {yards} total yards per game')
+                x = x + 1
+
+            x = 1
+            continue
+        if(yds_input == 2):
+            for team in teams["teams"]:
+                rush_yds.update({team["rushydgame"]: team["teamname"]})
+
+            rushydssorted = dict(sorted(rush_yds.items(), reverse=True))
+
+            for yards, seeds in rushydssorted.items():
+                print(f'{x}. {seeds}: {yards} rushing yards per game')
+                x = x + 1
+
+            x = 1
+            continue
+        if(yds_input == 3): #only printing 19 teams
+            for team in teams["teams"]:
+                pass_yds.update({team["passydgame"]: team["teamname"]})
+
+            passydssorted = dict(sorted(pass_yds.items(), reverse=True))
+
+            for yards, seeds in passydssorted.items():
+                print(f'{x}. {seeds}: {yards} passing yards per game')
+                x = x + 1
+
+            x = 1
+            continue
+        else:
+            yds_menu = False
+
+    return
+
 # def team_performance():
 #     return
 
 # def prestige_calculation():
 #     return
 
-playoff_teams = read_json()
+playoff_teams_2025 = read_json()
 
 while user_menu == True:
-    print(f'1. All-time win percentage')
+    print(f'1. All-time Win Percentage')
     print(f'2. Offensive Points Per Game')
     print(f'3. Offensive Yards Per Game')
     print(f'4. Defensive Points Per Game')
     print(f'5. Defensive Yards Per Game')
-    print(f'6. Turnover margin')
-    print(f'7. End program')
+    print(f'6. Turnover Margin')
+    print(f'7. End Program')
     user_input = int(input(f'Please choose which stat you wish to see: '))
 
     if (user_input == 1):
-        win_pctg(playoff_teams)
+        win_pctg(playoff_teams_2025)
         continue
     if (user_input == 2):
-        break
+        off_ppg(playoff_teams_2025)
+        continue
     if (user_input == 3):
+        off_yds(playoff_teams_2025)
         break
     if (user_input == 4):
         break
