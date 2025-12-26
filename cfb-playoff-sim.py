@@ -141,6 +141,22 @@ def off_yds(teams):
 
     return
 
+def def_ppg(teams):
+    ppg = {}
+    x = 1
+
+    for team in teams["teams"]:
+        ppg.update({team["teamname"]: team["defppg"]}) 
+
+    ppg_sorted_items = sorted(ppg.items(), key=lambda item: item[1])
+    ppg_sorted = dict(ppg_sorted_items)
+
+    for seeds, points in ppg_sorted.items():
+        print(f'{x}. {seeds}: {points} ppg')
+        x = x + 1
+
+    return
+
 # def team_performance():
 #     return
 
@@ -169,7 +185,7 @@ while user_menu == True:
         off_yds(playoff_teams_2025)
         continue
     if (user_input == 4):
-        break
+        def_ppg(playoff_teams_2025)
     if (user_input == 5):
         break
     if (user_input == 6):
