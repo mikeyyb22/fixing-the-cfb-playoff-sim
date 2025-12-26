@@ -276,7 +276,7 @@ def prestige_calculation(teams):
 #     return
 
 
-playoff_teams_2025 = read_json())
+playoff_teams_2025 = read_json()
 
 while user_menu == True:
     print(f'1. View Game Schedule')
