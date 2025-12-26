@@ -1,5 +1,6 @@
 import json
 import decimal
+import random
 user_menu = True
 
 def read_json():
@@ -8,11 +9,17 @@ def read_json():
         # print(d)
     return d
 
-def games_schedule(teams):
+def rng():
+    randnum = random.random()
+    print(randnum)
+
+    return randnum
+
+def games_schedule(teams):  #Show schedule
     seeds = {}
 
     for team in teams["teams"]:
-        seeds.update({team["seed"]: team["nameabbr"]}) 
+        seeds.update({team["seed"]: team["nameabbr"]})
 
     seeds_sorted = dict(sorted(seeds.items()))
 
@@ -44,6 +51,35 @@ def games_schedule(teams):
 
     print(f'Week 5 - National Championship')
     print(f'{seeds_sorted[1]}/{seeds_sorted[8]}/{seeds_sorted[9]}/{seeds_sorted[13]}/{seeds_sorted[20]}/{seeds_sorted[4]}/{seeds_sorted[5]}/{seeds_sorted[12]}/{seeds_sorted[16]}/{seeds_sorted[17]} vs {seeds_sorted[2]}/{seeds_sorted[7]}/{seeds_sorted[10]}/{seeds_sorted[14]}/{seeds_sorted[19]}/{seeds_sorted[3]}/{seeds_sorted[6]}/{seeds_sorted[11]}/{seeds_sorted[15]}/{seeds_sorted[18]}')
+
+    return
+
+def bracket_(teams):        #Start games simulation
+    wk1_gm1 = {}            #20 @ 13
+    wk1_gm2 = {}            #19 @ 14
+    wk1_gm3 = {}            #18 @ 15
+    wk1_gm4 = {}            #17 @ 16
+
+    seed_20 = teams["teams"][19]
+    seed_19 = teams["teams"][18]
+    seed_18 = teams["teams"][17]
+    seed_17 = teams["teams"][16]
+    seed_16 = teams["teams"][15]
+    seed_15 = teams["teams"][14]
+    seed_14 = teams["teams"][13]
+    seed_13 = teams["teams"][12]
+
+    wk1_gm1["hometeam"] = seed_13
+    wk1_gm1["awayteam"] = seed_20
+
+    game_sim(wk1_gm1)
+
+def drive_(team):
+    # Avg drive is 35-50yds
+    # Avg scoring drive is 55-70yds
+    # Avg drive start is 25yd line
+    # Avg field goals are from 10-40yds from endzone
+    
 
     return
 
@@ -282,67 +318,80 @@ def prestige_calculation(teams):
         pctg = str(round(prestigerating, 3))
         round_help = decimal.Decimal("0.1")
         pctg = decimal.Decimal(pctg)
-        rounded_prestige = pctg.quantize(round_help, rounding=decimal.ROUND_HALF_UP)
+        rounded_prestige = float(pctg.quantize(round_help, rounding=decimal.ROUND_HALF_UP))
         team["prestige"] = rounded_prestige
 
     for team in teams["teams"]:
         prestige.update({team["teamname"]: team["prestige"]}) 
 
-    prestige_sorted_items = sorted(prestige.items(), key=lambda item: item[1], reverse=True)
-    prestige_sorted = dict(prestige_sorted_items)
+    # prestige_sorted_items = sorted(prestige.items(), key=lambda item: item[1], reverse=True)
+    # prestige_sorted = dict(prestige_sorted_items)
 
     # for seeds, prestige in prestige_sorted.items():
     #     print(f'{x}. {seeds}: {prestige} Prestige Rating')
     #     x = x + 1
 
+    return teams
+
+def team_performance():
     return
 
-# def team_performance():
-#     return
+def game_sim(teams):
+    home_score = 0
+    away_score = 0
+    home_team = {}
+    away_team = {}
+
+    home_team["team"] = teams["hometeam"]  
+    away_team["team"] = teams["awayteam"]
+
+
+    return
+
+
 
 
 playoff_teams_2025 = read_json()
-prestige_calculation(playoff_teams_2025)
+playoff_teams_2025 = prestige_calculation(playoff_teams_2025)
+bracket_(playoff_teams_2025)
 
-while user_menu == True:
-    print(f'1. View Game Schedule')
-    print(f'2. All-time Win Percentage')
-    print(f'3. Offensive Points Per Game')
-    print(f'4. Offensive Yards Per Game')
-    print(f'5. Defensive Points Per Game')
-    print(f'6. Defensive Yards Per Game')
-    print(f'7. Turnover Margin')
-    print(f'8. View json file')
-    print(f'9. End Program')
-    user_input = input(f'Please choose which stat you wish to see: ')
+# while user_menu == True:
+#     print(f'1. View Game Schedule')
+#     print(f'2. All-time Win Percentage')
+#     print(f'3. Offensive Points Per Game')
+#     print(f'4. Offensive Yards Per Game')
+#     print(f'5. Defensive Points Per Game')
+#     print(f'6. Defensive Yards Per Game')
+#     print(f'7. Turnover Margin')
+#     print(f'8. View json file')
+#     print(f'9. End Program')
+#     user_input = input(f'Please choose which stat you wish to see: ')
 
-    if (user_input == "1"):
-        games_schedule(playoff_teams_2025)
-        continue
-    if (user_input == "2"):
-        win_pctg(playoff_teams_2025)
-        continue
-    if (user_input == "3"):
-        off_ppg(playoff_teams_2025)
-        continue
-    if (user_input == "4"):
-        off_yds(playoff_teams_2025)
-        continue
-    if (user_input == "5"):
-        def_ppg(playoff_teams_2025)
-        continue
-    if (user_input == "6"):
-        def_yds(playoff_teams_2025)
-        continue
-    if (user_input == "7"):
-        to_margin(playoff_teams_2025)
-        continue
-    if (user_input == "8"):
-        print(playoff_teams_2025)
-        continue
-    else:
-        user_menu = False
+#     if (user_input == "1"):
+#         games_schedule(playoff_teams_2025)
+#         continue
+#     if (user_input == "2"):
+#         win_pctg(playoff_teams_2025)
+#         continue
+#     if (user_input == "3"):
+#         off_ppg(playoff_teams_2025)
+#         continue
+#     if (user_input == "4"):
+#         off_yds(playoff_teams_2025)
+#         continue
+#     if (user_input == "5"):
+#         def_ppg(playoff_teams_2025)
+#         continue
+#     if (user_input == "6"):
+#         def_yds(playoff_teams_2025)
+#         continue
+#     if (user_input == "7"):
+#         to_margin(playoff_teams_2025)
+#         continue
+#     if (user_input == "8"):
+#         print(playoff_teams_2025)
+#         continue
+#     else:
+#         user_menu = False
 
 #TO-DO - PERFORMANCE EQUATION
-#STATS WEBSITE: https://www.teamrankings.com/ncf/stats/
-
