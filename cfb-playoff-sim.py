@@ -152,8 +152,66 @@ def def_ppg(teams):
     ppg_sorted = dict(ppg_sorted_items)
 
     for seeds, points in ppg_sorted.items():
-        print(f'{x}. {seeds}: {points} ppg')
+        print(f'{x}. {seeds}: {points} ppg allowed')
         x = x + 1
+
+    return
+
+def def_yds(teams):
+    total_yds = {}
+    rush_yds = {}
+    pass_yds = {}
+    yds_menu = True
+    x = 1
+
+    while yds_menu == True:
+        print(f'1. Total Yards')
+        print(f'2. Rush Yards')
+        print(f'3. Pass Yards')
+        print(f'4. Back')
+        yds_input = int(input(f'Please choose from the above options: '))
+
+        if(yds_input == 1):
+            for team in teams["teams"]:
+                total_yds.update({team["teamname"]: team["defypg"]})
+
+            totalyds_sorted_items = sorted(total_yds.items(), key=lambda item: item[1])
+            totalyds_sorted = dict(totalyds_sorted_items)
+
+            for seeds, yards in totalyds_sorted.items():
+                print(f'{x}. {seeds}: {yards} total yards allowed per game')
+                x = x + 1
+
+            x = 1
+            continue
+        if(yds_input == 2):
+            for team in teams["teams"]:
+                rush_yds.update({team["teamname"]: team["defrushydgame"]})
+
+            rushyds_sorted_items = sorted(rush_yds.items(), key=lambda item: item[1])
+            rushyds_sorted = dict(rushyds_sorted_items)
+
+            for seeds, yards in rushyds_sorted.items():
+                print(f'{x}. {seeds}: {yards} rushing yards allowed per game')
+                x = x + 1
+
+            x = 1
+            continue
+        if(yds_input == 3):
+            for team in teams["teams"]:
+                pass_yds.update({team["teamname"]: team["defpassydgame"]})
+
+            passyds_sorted_items = sorted(pass_yds.items(), key=lambda item: item[1])
+            passyds_sorted = dict(passyds_sorted_items)
+
+            for seeds, yards in passyds_sorted.items():
+                print(f'{x}. {seeds}: {yards} passing yards allowed per game')
+                x = x + 1
+
+            x = 1
+            continue
+        else:
+            yds_menu = False
 
     return
 
@@ -186,8 +244,10 @@ while user_menu == True:
         continue
     if (user_input == 4):
         def_ppg(playoff_teams_2025)
+        continue
     if (user_input == 5):
-        break
+        def_yds(playoff_teams_2025)
+        continue
     if (user_input == 6):
         break
     else:
