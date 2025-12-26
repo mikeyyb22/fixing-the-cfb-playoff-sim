@@ -269,6 +269,31 @@ def to_margin(teams):
     return
 
 def prestige_calculation(teams):
+    prestige = {}
+    prestigerating = 0.0
+    winpct = 0.0
+    x = 1
+
+    for team in teams["teams"]:
+        winpct = team["alltimewins"] / team["alltimegames"]
+        prestigerating = (team["wins"] - team["losses"] + team["natchamp"] + team["confchamp"] + team["heisman"]) * winpct * team["confstrength"]
+        if team["nameabbr"] == "ND":
+            prestigerating = prestigerating + 50
+        pctg = str(round(prestigerating, 3))
+        round_help = decimal.Decimal("0.1")
+        pctg = decimal.Decimal(pctg)
+        rounded_prestige = pctg.quantize(round_help, rounding=decimal.ROUND_HALF_UP)
+        team["prestige"] = rounded_prestige
+
+    for team in teams["teams"]:
+        prestige.update({team["teamname"]: team["prestige"]}) 
+
+    prestige_sorted_items = sorted(prestige.items(), key=lambda item: item[1], reverse=True)
+    prestige_sorted = dict(prestige_sorted_items)
+
+    for seeds, prestige in prestige_sorted.items():
+        print(f'{x}. {seeds}: {prestige} Prestige Rating')
+        x = x + 1
 
     return
 
@@ -277,41 +302,42 @@ def prestige_calculation(teams):
 
 
 playoff_teams_2025 = read_json()
+prestige_calculation(playoff_teams_2025)
 
-while user_menu == True:
-    print(f'1. View Game Schedule')
-    print(f'2. All-time Win Percentage')
-    print(f'3. Offensive Points Per Game')
-    print(f'4. Offensive Yards Per Game')
-    print(f'5. Defensive Points Per Game')
-    print(f'6. Defensive Yards Per Game')
-    print(f'7. Turnover Margin')
-    print(f'8. End Program')
-    user_input = int(input(f'Please choose which stat you wish to see: '))
+# while user_menu == True:
+#     print(f'1. View Game Schedule')
+#     print(f'2. All-time Win Percentage')
+#     print(f'3. Offensive Points Per Game')
+#     print(f'4. Offensive Yards Per Game')
+#     print(f'5. Defensive Points Per Game')
+#     print(f'6. Defensive Yards Per Game')
+#     print(f'7. Turnover Margin')
+#     print(f'8. End Program')
+#     user_input = int(input(f'Please choose which stat you wish to see: '))
 
-    if (user_input == 1):
-        games_schedule(playoff_teams_2025)
-        continue
-    if (user_input == 2):
-        win_pctg(playoff_teams_2025)
-        continue
-    if (user_input == 3):
-        off_ppg(playoff_teams_2025)
-        continue
-    if (user_input == 4):
-        off_yds(playoff_teams_2025)
-        continue
-    if (user_input == 5):
-        def_ppg(playoff_teams_2025)
-        continue
-    if (user_input == 6):
-        def_yds(playoff_teams_2025)
-        continue
-    if (user_input == 7):
-        to_margin(playoff_teams_2025)
-        continue
-    else:
-        user_menu = False
+#     if (user_input == 1):
+#         games_schedule(playoff_teams_2025)
+#         continue
+#     if (user_input == 2):
+#         win_pctg(playoff_teams_2025)
+#         continue
+#     if (user_input == 3):
+#         off_ppg(playoff_teams_2025)
+#         continue
+#     if (user_input == 4):
+#         off_yds(playoff_teams_2025)
+#         continue
+#     if (user_input == 5):
+#         def_ppg(playoff_teams_2025)
+#         continue
+#     if (user_input == 6):
+#         def_yds(playoff_teams_2025)
+#         continue
+#     if (user_input == 7):
+#         to_margin(playoff_teams_2025)
+#         continue
+#     else:
+#         user_menu = False
     
 #TO-DO - PRESTIGE CALC - APPEND TO END OF JSON
 #TO-DO - PERFORMANCE EQUATION
