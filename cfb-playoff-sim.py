@@ -8,6 +8,45 @@ def read_json():
         # print(d)
     return d
 
+def games_schedule(teams):
+    seeds = {}
+
+    for team in teams["teams"]:
+        seeds.update({team["seed"]: team["nameabbr"]}) 
+
+    seeds_sorted = dict(sorted(seeds.items()))
+
+    print(f'Week 1 - Play-in Games\n2 weeks after Conference Championships')
+    print(f'{seeds_sorted[20]} @ {seeds_sorted[13]}')
+    print(f'{seeds_sorted[19]} @ {seeds_sorted[14]}')
+    print(f'{seeds_sorted[18]} @ {seeds_sorted[15]}')
+    print(f'{seeds_sorted[17]} @ {seeds_sorted[16]}\n')
+
+    print(f'Week 2 - 1st Round\nWeek of Christmas')
+    print(f'{seeds_sorted[20]}/{seeds_sorted[13]} @ {seeds_sorted[1]}')
+    print(f'{seeds_sorted[19]}/{seeds_sorted[14]} @ {seeds_sorted[2]}')
+    print(f'{seeds_sorted[18]}/{seeds_sorted[15]} @ {seeds_sorted[3]}')
+    print(f'{seeds_sorted[17]}/{seeds_sorted[16]} @ {seeds_sorted[4]}')
+    print(f'{seeds_sorted[12]} @ {seeds_sorted[5]}')
+    print(f'{seeds_sorted[11]} @ {seeds_sorted[6]}')
+    print(f'{seeds_sorted[10]} @ {seeds_sorted[7]}')
+    print(f'{seeds_sorted[9]} @ {seeds_sorted[8]}')
+
+    print(f'Week 3 - Round 2\nNew Years Games')
+    print(f'{seeds_sorted[1]}/{seeds_sorted[13]}/{seeds_sorted[20]} vs {seeds_sorted[8]}/{seeds_sorted[9]} - Orange Bowl')
+    print(f'{seeds_sorted[2]}/{seeds_sorted[14]}/{seeds_sorted[19]} vs {seeds_sorted[7]}/{seeds_sorted[10]} - Sugar Bowl')
+    print(f'{seeds_sorted[3]}/{seeds_sorted[15]}/{seeds_sorted[18]} vs {seeds_sorted[6]}/{seeds_sorted[11]} - Peach Bowl')
+    print(f'{seeds_sorted[4]}/{seeds_sorted[16]}/{seeds_sorted[17]} vs {seeds_sorted[5]}/{seeds_sorted[12]} - Cotton Bowl')
+
+    print(f'Week 4 - Semi-Finals')
+    print(f'{seeds_sorted[1]}/{seeds_sorted[8]}/{seeds_sorted[9]}/{seeds_sorted[13]}/{seeds_sorted[20]} vs {seeds_sorted[4]}/{seeds_sorted[5]}/{seeds_sorted[12]}/{seeds_sorted[16]}/{seeds_sorted[17]}  - Rose Bowl')
+    print(f'{seeds_sorted[2]}/{seeds_sorted[7]}/{seeds_sorted[10]}/{seeds_sorted[14]}/{seeds_sorted[19]} vs {seeds_sorted[3]}/{seeds_sorted[6]}/{seeds_sorted[11]}/{seeds_sorted[15]}/{seeds_sorted[18]}  - Fiesta Bowl')
+
+    print(f'Week 5 - National Championship')
+    print(f'{seeds_sorted[1]}/{seeds_sorted[8]}/{seeds_sorted[9]}/{seeds_sorted[13]}/{seeds_sorted[20]}/{seeds_sorted[4]}/{seeds_sorted[5]}/{seeds_sorted[12]}/{seeds_sorted[16]}/{seeds_sorted[17]} vs {seeds_sorted[2]}/{seeds_sorted[7]}/{seeds_sorted[10]}/{seeds_sorted[14]}/{seeds_sorted[19]}/{seeds_sorted[3]}/{seeds_sorted[6]}/{seeds_sorted[11]}/{seeds_sorted[15]}/{seeds_sorted[18]}')
+
+    return
+
 def win_pctg_calc(teams):
     winpctg = {}
     wins = 0
@@ -229,47 +268,51 @@ def to_margin(teams):
 
     return
 
+def prestige_calculation(teams):
+
+    return
+
 # def team_performance():
 #     return
 
-# def prestige_calculation():
-#     return
 
-playoff_teams_2025 = read_json()
+playoff_teams_2025 = read_json())
 
 while user_menu == True:
-    print(f'1. All-time Win Percentage')
-    print(f'2. Offensive Points Per Game')
-    print(f'3. Offensive Yards Per Game')
-    print(f'4. Defensive Points Per Game')
-    print(f'5. Defensive Yards Per Game')
-    print(f'6. Turnover Margin')
-    print(f'7. End Program')
+    print(f'1. View Game Schedule')
+    print(f'2. All-time Win Percentage')
+    print(f'3. Offensive Points Per Game')
+    print(f'4. Offensive Yards Per Game')
+    print(f'5. Defensive Points Per Game')
+    print(f'6. Defensive Yards Per Game')
+    print(f'7. Turnover Margin')
+    print(f'8. End Program')
     user_input = int(input(f'Please choose which stat you wish to see: '))
 
     if (user_input == 1):
-        win_pctg(playoff_teams_2025)
+        games_schedule(playoff_teams_2025)
         continue
     if (user_input == 2):
-        off_ppg(playoff_teams_2025)
+        win_pctg(playoff_teams_2025)
         continue
     if (user_input == 3):
-        off_yds(playoff_teams_2025)
+        off_ppg(playoff_teams_2025)
         continue
     if (user_input == 4):
-        def_ppg(playoff_teams_2025)
+        off_yds(playoff_teams_2025)
         continue
     if (user_input == 5):
-        def_yds(playoff_teams_2025)
+        def_ppg(playoff_teams_2025)
         continue
     if (user_input == 6):
+        def_yds(playoff_teams_2025)
+        continue
+    if (user_input == 7):
         to_margin(playoff_teams_2025)
         continue
     else:
         user_menu = False
     
-
-#TO-DO - READ JSON AND SORT TEAMS BY STATISTIC
 #TO-DO - PRESTIGE CALC - APPEND TO END OF JSON
 #TO-DO - PERFORMANCE EQUATION
 #STATS WEBSITE: https://www.teamrankings.com/ncf/stats/
