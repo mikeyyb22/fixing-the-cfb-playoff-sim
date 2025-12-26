@@ -1,5 +1,3 @@
-## SORTING ERROR
-
 import json
 import decimal
 user_menu = True
@@ -215,6 +213,22 @@ def def_yds(teams):
 
     return
 
+def to_margin(teams):
+    to = {}
+    x = 1
+
+    for team in teams["teams"]:
+        to.update({team["teamname"]: team["turnovermargin"]}) 
+
+    to_sorted_items = sorted(to.items(), key=lambda item: item[1], reverse=True)
+    to_sorted = dict(to_sorted_items)
+
+    for seeds, tos in to_sorted.items():
+        print(f'{x}. {seeds}: {tos}')
+        x = x + 1
+
+    return
+
 # def team_performance():
 #     return
 
@@ -249,13 +263,13 @@ while user_menu == True:
         def_yds(playoff_teams_2025)
         continue
     if (user_input == 6):
-        break
+        to_margin(playoff_teams_2025)
+        continue
     else:
         user_menu = False
     
 
 #TO-DO - READ JSON AND SORT TEAMS BY STATISTIC
-#TO-DO - FACTOR HOME/AWAY STATS (?)
 #TO-DO - PRESTIGE CALC - APPEND TO END OF JSON
 #TO-DO - PERFORMANCE EQUATION
 #STATS WEBSITE: https://www.teamrankings.com/ncf/stats/
