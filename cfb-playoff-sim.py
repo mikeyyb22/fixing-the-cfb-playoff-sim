@@ -78,8 +78,11 @@ def bracket_(teams):        #Start games simulation
     wk1_gm1 = {}            #20 @ 13
     w1g1 = "wk1_gm1"
     wk1_gm2 = {}            #19 @ 14
+    w1g2 = "wk1_gm2"
     wk1_gm3 = {}            #18 @ 15
+    w1g3 = "wk1_gm3"
     wk1_gm4 = {}            #17 @ 16
+    w1g4 = "wk1_gm4"
 
     seed_20 = teams["teams"][19]
     seed_19 = teams["teams"][18]
@@ -101,15 +104,38 @@ def game_log(log, week):
 
     return log
 
-def drive_(team, log):
-    # Avg drive is 35-50yds
-    # Avg scoring drive is 55-70yds
-    # Avg drive start is 25yd line
-    # Avg field goals are from 10-40yds from endzone
+def kickoff_return():
+    randnum = rng()
+    randnum = randnum * 0.5
+    # Touchback
+    if randnum <= 0.5:
+        start_drive = 25
+    # Return
+    if 0.98 > randnum >= 0.5:
+        rand_return = rng()
+        return_length = 20 * rand_return
+        start_drive = return_length
+    if randnum >= 0.98:
+        start_drive = 100
+    
+    return start_drive
 
+def pat_2pt(gamestate, score, gametime):
+    home_score = score[0]
+    away_score = score[1]
 
+    if 
+    
 
-    return 
+def drive_(team, gamestate, score, gametime):
+    start_drive = 1
+    # Kickoff / Punt return
+    if gamestate == "kickoff":
+        start_drive = kickoff_return()
+        if start_drive == 100:
+            gamestate = pat_2pt(gamestate, score, gametime)
+        
+    return gamestate
 
 def win_pctg_calc(teams):
     winpctg = {}
@@ -362,60 +388,74 @@ def prestige_calculation(teams):
     return teams
 
 def game_sim(teams, week):
-    home_score = 0
-    away_score = 0
+    game_score = [0, 0] # Home team always first value
     home_team = {}
     away_team = {}
+    gamestate = ""
+    gametime = ""
 
     home_team["team"] = teams["hometeam"]
     away_team["team"] = teams["awayteam"]
     home_team_luck = rng()              # luck number for game
     away_team_luck = rng()              # luck number for game
-
-    # number of drives - def ypg / avg drive length +/- luck factor
-    # momentum stat goes up 1 for field goal, turnover, up 2 for touchdown
-        # momentum adds to luck factor
-
     coinflip = coin_flip()
-    drive_variance = random.choice([-1, 0, 1])
+    
     # Home team starts with ball
     if coinflip == "heads":
         drive_length = avg_rng(avg_drive)
+        drive_variance = random.choice([-1, 0, 1])
         home_drive_count = math.floor((away_team["team"]["defypg"] / drive_length) * home_team_luck)
         if home_drive_count > 15:
             home_drive_count = 15
         if home_drive_count < 10:
             home_drive_count = 10
         away_drive_count = home_drive_count + drive_variance
-        print(f'{home_drive_count} & {away_drive_count}')
+
+        # home_drive_count = 10
+        # away_drive_count = 10
 
         # Create game log
         globals()[f'{week}_game_log'] = ""
         globals()[f'{week}_game_log'] = globals()[f'{week}_game_log'] + week
+        gamestate = "kickoff"
+        gametime = "1sthalf"
         # Start game (drives)
         if home_drive_count == away_drive_count:
             for x in range(home_drive_count):
-                drive_(home_team, globals()[f'{week}_game_log'])
-                drive_(away_team, globals()[f'{week}_game_log'])
+                if home_drive_count - 2 > x > home_drive_count / 2:
+                    gametime = "2ndhalf"
+                    # print(f'x: {x}, gametime: {gametime}')
+                    drive_(home_team, gamestate, game_score, gametime)
+                    drive_(away_team, gamestate, game_score, gametime)
+                if x > home_drive_count - 2:
+                    gametime = "2minleft"
+                    # print(f'x: {x}, gametime: {gametime}')
+                    drive_(home_team, gamestate, game_score, gametime)
+                    drive_(away_team, gamestate, game_score, gametime)
+                else:
+                    # print(f'x: {x}, gametime: {gametime}')
+                    drive_(home_team, gamestate, game_score, gametime)
+                    drive_(away_team, gamestate, game_score, gametime)
         if home_drive_count > away_drive_count:
             for x in range(home_drive_count):
-                drive_(home_team, globals()[f'{week}_game_log'])
+                drive_(home_team, gamestate, game_score)
                 if x != home_drive_count - 1:
-                    drive_(away_team, globals()[f'{week}_game_log'])
+                    drive_(away_team, gamestate, game_score)
         if home_drive_count < away_drive_count:
             for x in range(away_drive_count):
                 if x < (away_drive_count - 1) / 2:
-                    drive_(home_team, globals()[f'{week}_game_log'])
-                    drive_(away_team, globals()[f'{week}_game_log'])
+                    drive_(home_team, gamestate, game_score)
+                    drive_(away_team, gamestate, game_score)
                 else:
-                    drive_(away_team, globals()[f'{week}_game_log'])
+                    drive_(away_team, gamestate, game_score)
                     if x!= away_drive_count - 1:
-                        drive_(home_team, globals()[f'{week}_game_log'])
+                        drive_(home_team, gamestate, game_score)
                 
 
     # Away team starts with ball
     if coinflip == "tails":
         drive_length = avg_rng(avg_drive)
+        drive_variance = random.choice([-1, 0, 1])
         away_drive_count = math.floor((home_team["team"]["defypg"] / drive_length) * away_team_luck)
         if away_drive_count > 15:
             away_drive_count = 15
@@ -423,8 +463,29 @@ def game_sim(teams, week):
             away_drive_count = 10
         home_drive_count = away_drive_count + drive_variance
         
-    
-    
+        # Create game log
+        globals()[f'{week}_game_log'] = ""
+        globals()[f'{week}_game_log'] = globals()[f'{week}_game_log'] + week
+        gamestate = "kickoff"
+        # Start game (drives)
+        if away_drive_count == home_drive_count:
+            for x in range(away_drive_count):
+                drive_(away_team, gamestate, game_score)
+                drive_(home_team, gamestate, game_score)
+        if away_drive_count > home_drive_count:
+            for x in range(away_drive_count):
+                drive_(away_team, gamestate, game_score)
+                if x != away_drive_count - 1:
+                    drive_(home_team, gamestate, game_score)
+        if away_drive_count < home_drive_count:
+            for x in range(home_drive_count):
+                if x < (home_drive_count - 1) / 2:
+                    drive_(away_team, gamestate, game_score)
+                    drive_(home_team, gamestate, game_score)
+                else:
+                    drive_(home_team, gamestate, game_score)
+                    if x!= home_drive_count - 1:
+                        drive_(away_team, gamestate, game_score)
 
     return
 
