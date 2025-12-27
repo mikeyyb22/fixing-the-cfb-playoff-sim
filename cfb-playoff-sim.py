@@ -541,26 +541,94 @@ def game_sim(teams, week):
         # Create game log
         globals()[f'{week}_game_log'] = ""
         globals()[f'{week}_game_log'] = globals()[f'{week}_game_log'] + week
-        gamestate = "kickoff"
+        gamestate = "kickoff"        
+        gametime = "1sthalf"
         # Start game (drives)
         if away_drive_count == home_drive_count:
             for x in range(away_drive_count):
-                drive_(away_team, gamestate, game_score)
-                drive_(home_team, gamestate, game_score)
+                if away_drive_count - 2 > x > away_drive_count / 2:
+                    gametime = "2ndhalf"
+                    possession = "away"
+                    drive_(away_team, gamestate, game_score, gametime, possession)
+                    possession = "home"
+                    drive_(home_team, gamestate, game_score, gametime, possession)
+                if x > away_drive_count - 2:
+                    gametime = "2minleft"
+                    possession = "away"
+                    drive_(away_team, gamestate, game_score, gametime, possession)
+                    possession = "home"
+                    drive_(home_team, gamestate, game_score, gametime, possession)
+                else:
+                    gametime = "1sthalf"
+                    possession = "away"
+                    drive_(away_team, gamestate, game_score, gametime, possession)
+                    possession = "home"
+                    drive_(home_team, gamestate, game_score, gametime, possession)
         if away_drive_count > home_drive_count:
             for x in range(away_drive_count):
-                drive_(away_team, gamestate, game_score)
-                if x != away_drive_count - 1:
-                    drive_(home_team, gamestate, game_score)
+                if away_drive_count - 2 > x > away_drive_count / 2:     
+                    gametime = "2ndhalf"
+                    possession = "away"
+                    drive_(away_team, gamestate, game_score, possession)
+                    if x != away_drive_count - 1:
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                if x > away_drive_count - 2:     
+                    gametime = "2minleft"
+                    possession = "away"
+                    drive_(away_team, gamestate, game_score, possession)
+                    if x != away_drive_count - 1:
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                else:
+                    gametime = "1sthalf"
+                    possession = "away"
+                    drive_(away_team, gamestate, game_score, possession)
+                    if x != away_drive_count - 1:
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
         if away_drive_count < home_drive_count:
             for x in range(home_drive_count):
-                if x < (home_drive_count - 1) / 2:
-                    drive_(away_team, gamestate, game_score)
-                    drive_(home_team, gamestate, game_score)
-                else:
-                    drive_(home_team, gamestate, game_score)
-                    if x!= home_drive_count - 1:
-                        drive_(away_team, gamestate, game_score)
+                if away_drive_count - 2 > x > away_drive_count / 2:   
+                    gametime = "2ndhalf"  
+                    if x < (home_drive_count - 1) / 2:
+                        possession = "away"
+                        drive_(away_team, gamestate, game_score, possession)
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                    else:
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                        if x!= home_drive_count - 1:
+                            possession = "away"
+                            drive_(away_team, gamestate, game_score, possession)
+                if x > away_drive_count - 2:   
+                    gametime = "2minleft"  
+                    if x < (home_drive_count - 1) / 2:
+                        possession = "away"
+                        drive_(away_team, gamestate, game_score, possession)
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                    else:
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                        if x!= home_drive_count - 1:
+                            possession = "away"
+                            drive_(away_team, gamestate, game_score, possession)
+                else:   
+                    gametime = "1sthalf"  
+                    if x < (home_drive_count - 1) / 2:
+                        possession = "away"
+                        drive_(away_team, gamestate, game_score, possession)
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                    else:
+                        possession = "home"
+                        drive_(home_team, gamestate, game_score, possession)
+                        if x!= home_drive_count - 1:
+                            possession = "away"
+                            drive_(away_team, gamestate, game_score, possession)
+                
 
     return
 
