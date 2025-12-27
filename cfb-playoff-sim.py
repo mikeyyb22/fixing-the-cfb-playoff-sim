@@ -76,6 +76,7 @@ def games_schedule(teams):  #Show schedule
 
 def bracket_(teams):        #Start games simulation
     wk1_gm1 = {}            #20 @ 13
+    w1g1 = "wk1_gm1"
     wk1_gm2 = {}            #19 @ 14
     wk1_gm3 = {}            #18 @ 15
     wk1_gm4 = {}            #17 @ 16
@@ -92,18 +93,23 @@ def bracket_(teams):        #Start games simulation
     wk1_gm1["hometeam"] = seed_13
     wk1_gm1["awayteam"] = seed_20
 
-    game_sim(wk1_gm1)
+    game_sim(wk1_gm1, w1g1)
 
-def drive_(team):
+def game_log(log, week):
+    # put game log from drive_ into here
+    log = log + week
+
+    return log
+
+def drive_(team, log):
     # Avg drive is 35-50yds
     # Avg scoring drive is 55-70yds
     # Avg drive start is 25yd line
     # Avg field goals are from 10-40yds from endzone
 
-    w1g1_gl = ""            #week 1 game 1 game log
 
 
-    return
+    return 
 
 def win_pctg_calc(teams):
     winpctg = {}
@@ -355,10 +361,7 @@ def prestige_calculation(teams):
 
     return teams
 
-def team_performance():
-    return
-
-def game_sim(teams):
+def game_sim(teams, week):
     home_score = 0
     away_score = 0
     home_team = {}
@@ -384,6 +387,31 @@ def game_sim(teams):
         if home_drive_count < 10:
             home_drive_count = 10
         away_drive_count = home_drive_count + drive_variance
+        print(f'{home_drive_count} & {away_drive_count}')
+
+        # Create game log
+        globals()[f'{week}_game_log'] = ""
+        globals()[f'{week}_game_log'] = globals()[f'{week}_game_log'] + week
+        # Start game (drives)
+        if home_drive_count == away_drive_count:
+            for x in range(home_drive_count):
+                drive_(home_team, globals()[f'{week}_game_log'])
+                drive_(away_team, globals()[f'{week}_game_log'])
+        if home_drive_count > away_drive_count:
+            for x in range(home_drive_count):
+                drive_(home_team, globals()[f'{week}_game_log'])
+                if x != home_drive_count - 1:
+                    drive_(away_team, globals()[f'{week}_game_log'])
+        if home_drive_count < away_drive_count:
+            for x in range(away_drive_count):
+                if x < (away_drive_count - 1) / 2:
+                    drive_(home_team, globals()[f'{week}_game_log'])
+                    drive_(away_team, globals()[f'{week}_game_log'])
+                else:
+                    drive_(away_team, globals()[f'{week}_game_log'])
+                    if x!= away_drive_count - 1:
+                        drive_(home_team, globals()[f'{week}_game_log'])
+                
 
     # Away team starts with ball
     if coinflip == "tails":
@@ -394,12 +422,9 @@ def game_sim(teams):
         if away_drive_count < 10:
             away_drive_count = 10
         home_drive_count = away_drive_count + drive_variance
+        
     
-
     
-    
-
-
 
     return
 
