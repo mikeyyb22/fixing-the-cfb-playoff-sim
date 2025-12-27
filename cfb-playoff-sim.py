@@ -1,6 +1,12 @@
 import json
 import decimal
 import random
+import math
+
+avg_drive = [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
+avg_scoring_drive = [55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70]
+avg_variance = [-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5]
+
 user_menu = True
 
 def read_json():
@@ -9,11 +15,25 @@ def read_json():
         # print(d)
     return d
 
+def coin_flip():
+    flip = random.choice([1, 2])
+    if flip == 1:
+        return "heads"
+    if flip == 2:
+        return "tails"
+
 def rng():
-    randnum = random.random()
-    print(randnum)
+    randnum = random.uniform(.75, 1.25)
 
     return randnum
+
+def avg_rng(avg):
+    avg_randnum = random.choice(avg)
+    randnum_variance = random.choice(avg_variance)
+    
+    avg_randnum = avg_randnum + randnum_variance
+
+    return avg_randnum
 
 def games_schedule(teams):  #Show schedule
     seeds = {}
@@ -79,7 +99,9 @@ def drive_(team):
     # Avg scoring drive is 55-70yds
     # Avg drive start is 25yd line
     # Avg field goals are from 10-40yds from endzone
-    
+
+    w1g1_gl = ""            #week 1 game 1 game log
+
 
     return
 
@@ -342,8 +364,41 @@ def game_sim(teams):
     home_team = {}
     away_team = {}
 
-    home_team["team"] = teams["hometeam"]  
+    home_team["team"] = teams["hometeam"]
     away_team["team"] = teams["awayteam"]
+    home_team_luck = rng()              # luck number for game
+    away_team_luck = rng()              # luck number for game
+
+    # number of drives - def ypg / avg drive length +/- luck factor
+    # momentum stat goes up 1 for field goal, turnover, up 2 for touchdown
+        # momentum adds to luck factor
+
+    coinflip = coin_flip()
+    drive_variance = random.choice([-1, 0, 1])
+    # Home team starts with ball
+    if coinflip == "heads":
+        drive_length = avg_rng(avg_drive)
+        home_drive_count = math.floor((away_team["team"]["defypg"] / drive_length) * home_team_luck)
+        if home_drive_count > 15:
+            home_drive_count = 15
+        if home_drive_count < 10:
+            home_drive_count = 10
+        away_drive_count = home_drive_count + drive_variance
+
+    # Away team starts with ball
+    if coinflip == "tails":
+        drive_length = avg_rng(avg_drive)
+        away_drive_count = math.floor((home_team["team"]["defypg"] / drive_length) * away_team_luck)
+        if away_drive_count > 15:
+            away_drive_count = 15
+        if away_drive_count < 10:
+            away_drive_count = 10
+        home_drive_count = away_drive_count + drive_variance
+    
+
+    
+    
+
 
 
     return
