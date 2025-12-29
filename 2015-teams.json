@@ -1,0 +1,28 @@
+{
+    "teams": [
+        {
+            "teamname": ,
+            "conference": ,
+            "nameabbr": ,
+            "seed": 1,
+            "wins": ,
+            "losses": ,
+            "confstrength": ,
+            "alltimegames": ,
+            "alltimewins": ,
+            "natchamp": ,
+            "confchamp": ,
+            "heisman": ,
+            "offppg": ,
+            "offypg": ,
+            "rushydgame": ,
+            "passydgame": ,
+            "turnovermargin": ,
+            "defppg": ,
+            "defypg": ,
+            "defrushydgame": ,
+            "defpassydgame": ,
+            "sos": ,
+        }
+    ]
+}
