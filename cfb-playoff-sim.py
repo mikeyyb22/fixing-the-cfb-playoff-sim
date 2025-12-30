@@ -9,8 +9,8 @@ avg_variance = [-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5]
 
 user_menu = True
 
-def read_json():
-    with open('2025-teams.json') as f:
+def read_json(year):
+    with open(year) as f:
         d = json.load(f)
         # print(d)
     return d
@@ -488,7 +488,7 @@ def def_yds(teams):
         print(f'4. Back')           # Exit to main menu
         yds_input = input(f'Please choose from the above options: ')
 
-        if(yds_input == 1):
+        if(yds_input == "1"):
             # Sorts by total yds allowed
             # Update and sort total_yds dictionary
             for team in teams["teams"]:
@@ -503,7 +503,7 @@ def def_yds(teams):
 
             x = 1
             continue
-        if(yds_input == 2):
+        if(yds_input == "2"):
             # Sorts by rush yds allowed
             # Update and sort rush_yds dictionary
             for team in teams["teams"]:
@@ -518,7 +518,7 @@ def def_yds(teams):
 
             x = 1
             continue
-        if(yds_input == 3):
+        if(yds_input == "3"):
             # Sorts by pass yds allowed
             # Update and sort pass_yds dictionary
             for team in teams["teams"]:
@@ -865,11 +865,13 @@ def game_sim(teams, week):
     return
 
 
+year_input = input('Choose year (2010 or 2025): ')
+year_ = f'{year_input}-teams.json'
 
+globals()[f'playoff_teams_{year_input}'] = read_json(year_)
 
-playoff_teams_2025 = read_json()
 # Add prestige rating
-playoff_teams_2025 = prestige_calculation(playoff_teams_2025)
+globals()[f'playoff_teams_{year_input}'] = prestige_calculation(globals()[f'playoff_teams_{year_input}'])
 
 # Main menu for 2025 playoff teams
 while user_menu == True:
@@ -884,45 +886,46 @@ while user_menu == True:
     print(f'9. View json file')                 # View dictionary of playoff teams
     print(f'10. Start simulation')              # Simulate games in current year
     print(f'11. End Program')                   # Terminate program
-    user_input = input(f'Please choose one of the options below: ')
+    user_input = input(f'Please choose one of the options above: ')
 
     if (user_input == "1"):
         # Show game schedule and possible matchups
-        games_schedule(playoff_teams_2025)
+        games_schedule(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "2"):
         # Sort by all-time win %
-        win_pctg(playoff_teams_2025)
+        win_pctg(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "3"):
         # Sort by offensive ppg
-        off_ppg(playoff_teams_2025)
+        off_ppg(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "4"):
         # Sort by offensive ypg
-        off_yds(playoff_teams_2025)
+        off_yds(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "5"):
         # Sort by defensive ppg
-        def_ppg(playoff_teams_2025)
+        def_ppg(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "6"):
         # Sort by defensive ypg
-        def_yds(playoff_teams_2025)
+        def_yds(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "7"):
         # Sort by turnover margin
-        to_margin(playoff_teams_2025)
+        to_margin(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "8"):
         # Sort by prestige rating
-        prestige_(playoff_teams_2025)
+        prestige_(globals()[f'playoff_teams_{year_input}'])
+        continue
     if (user_input == "9"):
         # View dictionary of playoff teams
-        print(playoff_teams_2025)
+        print(globals()[f'playoff_teams_{year_input}'])
         continue
     if (user_input == "10"):
-        bracket_(playoff_teams_2025)
+        bracket_(globals()[f'playoff_teams_{year_input}'])
         continue
     else:
         # Terminate program
