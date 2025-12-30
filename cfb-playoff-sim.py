@@ -29,7 +29,7 @@ def coin_flip():
 
 def rng():
     print(f'In rng() function...')
-    randnum = random.uniform(.75, 1.25)
+    randnum = random.uniform(.75, 1.25)     # Generates random number between .75 and 1.25
     print(f'Random number generated in rng() is {randnum}')
     
     print(f'Exiting rng() function...')
@@ -216,6 +216,12 @@ def pat_2pt(gamestate, score, gametime, possession):
 
 def drive_result(team, start_drive, gamestate, possession):
     print(f'In drive_result function...')
+    down_count = 1                  # Counts downs, so there's no 5th down
+
+    while down_count < 4:
+        print(f'Current down: {down_count}')
+        # if possession == "home":
+        down_count = down_count + 1
 
     print(f'Exiting drive_result function...')
     return
@@ -608,6 +614,56 @@ def prestige_(teams):
     print(f'Exiting prestige function...')
     return
 
+def prestige_luck(team):
+    print(f'In prestige_luck function...')
+    prestigeboost = 0.0
+    prestigehelp = game_rng()
+    print(f'prestigehelp for {team["team"]["nameabbr"]} is {prestigehelp}')
+    if team["team"]["prestige"] >= 50:
+        if 0.90 >= prestigehelp >= 0.10:
+            prestigeboost = 1.2
+            print(f'{team["team"]["nameabbr"]} will receive a small boost for being prestigious')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+        if prestigehelp > 0.90:
+            prestigeboost = 2
+            print(f'{team["team"]["nameabbr"]} will receive a large boost for being prestigious [been there, done that boost]')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+        if 0.05 <= prestigehelp < 0.10:
+            prestigeboost = 0.75
+            print(f'{team["team"]["nameabbr"]} will receive a small debuff [underestimated opponent debuff]')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+        if prestigehelp < 0.05:
+            prestigeboost = 0.5
+            print(f'{team["team"]["nameabbr"]} will receive a large debuff [when it rains, it pours debuff]')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+
+    if team["team"]["prestige"] < 50:
+        if 0.90 >= prestigehelp >= 0.10:
+            prestigeboost = 1
+            print(f'{team["team"]["nameabbr"]} will play normally as a less prestigious team')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+        if prestigehelp > 0.90:
+            prestigeboost = 2
+            print(f'{team["team"]["nameabbr"]} will receive a large boost [underdog boost]')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+        if 0.05 <= prestigehelp < 0.10:
+            prestigeboost = 0.75
+            print(f'{team["team"]["nameabbr"]} will receive a small debuff for being less prestigious')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+        if prestigehelp < 0.05:
+            prestigeboost = 0.5
+            print(f'{team["team"]["nameabbr"]} will receive a large debuff [deer in headlights debuff]')
+            print(f'Exiting prestige_luck function...')
+            return prestigeboost
+
+
 def game_sim(teams, week):
     game_score = [0, 0] # Home team always first value
     home_team = {}
@@ -622,6 +678,11 @@ def game_sim(teams, week):
     # Define luck for each team, and coinflip to see who gets ball first
     home_team_luck = rng()
     away_team_luck = rng()
+    # See if prestige rating will help/hinder luck
+    home_prestige = prestige_luck(home_team)
+    away_prestige = prestige_luck(away_team)
+    home_team_luck = home_team_luck * home_prestige
+    away_team_luck = away_team_luck * away_prestige
     coinflip = coin_flip()
 
     # Home team starts with ball
