@@ -214,22 +214,23 @@ def pat_2pt(gamestate, score, gametime, possession):
             print(f'Exiting pat_2pt function...')
             return gamestate
 
-def drive_result(team, start_drive, gamestate, possession, luck):
+def drive_result(teams, start_drive, gamestate, possession, luck):
     print(f'In drive_result function...')
     down_count = 1                  # Counts downs, so there's no 5th down
     yard_line = start_drive
+    play_yards = 0
 
-    while down_count < 4:
+    while down_count < 4 and yard_line < 100:
         print(f'Current down: {down_count}')
         if possession == "home":
             drive_success = rng()
-            
+            # play_yards = 
         down_count = down_count + 1
 
     print(f'Exiting drive_result function...')
     return
 
-def drive_start(team, gamestate, score, gametime, possession, luck):
+def drive_start(teams, gamestate, score, gametime, possession, luck):
     print(f'In drive_start function...')
 
     start_drive = 1                 # Default value for yardline of drive start
@@ -239,7 +240,7 @@ def drive_start(team, gamestate, score, gametime, possession, luck):
         if start_drive == 100:      # Drive does not continue if KR TD
             gamestate = pat_2pt(gamestate, score, gametime, possession)
         else:
-            gamestate = drive_result(team, start_drive, gamestate, possession, luck)
+            gamestate = drive_result(teams, start_drive, gamestate, possession, luck)
         
 
 
@@ -621,69 +622,77 @@ def prestige_luck(team):
     print(f'In prestige_luck function...')
     prestigeboost = 0.0
     prestigehelp = game_rng()
-    print(f'prestigehelp for {team["team"]["nameabbr"]} is {prestigehelp}')
-    if team["team"]["prestige"] >= 50:
+    print(f'prestigehelp for {team["nameabbr"]} is {prestigehelp}')
+    if team["prestige"] >= 50:
         if 0.90 >= prestigehelp >= 0.10:
             prestigeboost = 1.2
-            print(f'{team["team"]["nameabbr"]} will receive a small boost for being prestigious')
+            print(f'{team["nameabbr"]} will receive a small boost for being prestigious')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
         if prestigehelp > 0.90:
             prestigeboost = 2
-            print(f'{team["team"]["nameabbr"]} will receive a large boost for being prestigious [been there, done that boost]')
+            print(f'{team["nameabbr"]} will receive a large boost for being prestigious [been there, done that boost]')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
         if 0.05 <= prestigehelp < 0.10:
             prestigeboost = 0.75
-            print(f'{team["team"]["nameabbr"]} will receive a small debuff [underestimated opponent debuff]')
+            print(f'{team["nameabbr"]} will receive a small debuff [underestimated opponent debuff]')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
         if prestigehelp < 0.05:
             prestigeboost = 0.5
-            print(f'{team["team"]["nameabbr"]} will receive a large debuff [when it rains, it pours debuff]')
+            print(f'{team["nameabbr"]} will receive a large debuff [when it rains, it pours debuff]')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
 
-    if team["team"]["prestige"] < 50:
+    if team["prestige"] < 50:
         if 0.90 >= prestigehelp >= 0.10:
             prestigeboost = 1
-            print(f'{team["team"]["nameabbr"]} will play normally as a less prestigious team')
+            print(f'{team["nameabbr"]} will play normally as a less prestigious team')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
         if prestigehelp > 0.90:
             prestigeboost = 2
-            print(f'{team["team"]["nameabbr"]} will receive a large boost [underdog boost]')
+            print(f'{team["nameabbr"]} will receive a large boost [underdog boost]')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
         if 0.05 <= prestigehelp < 0.10:
             prestigeboost = 0.75
-            print(f'{team["team"]["nameabbr"]} will receive a small debuff for being less prestigious')
+            print(f'{team["nameabbr"]} will receive a small debuff for being less prestigious')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
         if prestigehelp < 0.05:
             prestigeboost = 0.5
-            print(f'{team["team"]["nameabbr"]} will receive a large debuff [deer in headlights debuff]')
+            print(f'{team["nameabbr"]} will receive a large debuff [deer in headlights debuff]')
             print(f'Exiting prestige_luck function...')
             return prestigeboost
 
+def true_strength(team):
+    print(f'In true_strength function...')
+    print(f'{team["nameabbr"]}\'s strength of schedule is #{team["sos"]}.')
+    
+    # True strength based off SOS
+    
+    # Update dictionary
+
+    print(f'Exiting true_strength function...')
+    return team
 
 def game_sim(teams, week):
     game_score = [0, 0] # Home team always first value
-    home_team = {}
-    away_team = {}
     gamestate = ""
     gametime = ""
     possession = ""
 
-    # Create 2 dictionaries - 1 for home, 1 for away
-    home_team["team"] = teams["hometeam"]
-    away_team["team"] = teams["awayteam"]
+    # Return equalized stats based on SOS
+    teams = true_strength(teams)
+
     # Define luck for each team, and coinflip to see who gets ball first
     home_team_luck = rng()
     away_team_luck = rng()
     # See if prestige rating will help/hinder luck
-    home_prestige = prestige_luck(home_team)
-    away_prestige = prestige_luck(away_team)
+    home_prestige = prestige_luck(teams["hometeam"])
+    away_prestige = prestige_luck(teams["awayteam"])
     home_team_luck = home_team_luck * home_prestige
     away_team_luck = away_team_luck * away_prestige
     coinflip = coin_flip()
@@ -693,7 +702,7 @@ def game_sim(teams, week):
         # Define how many drives each team will have, with home team receiving ball first
         drive_length = avg_rng(avg_drive)
         drive_variance = random.choice([-1, 0, 1])
-        home_drive_count = math.floor((away_team["team"]["defypg"] / drive_length) * home_team_luck)
+        home_drive_count = math.floor((teams["awayteam"]["defypg"] / drive_length) * home_team_luck)
         # Eliminate outliers
         if home_drive_count > 15:
             home_drive_count = 15
@@ -717,28 +726,28 @@ def game_sim(teams, week):
                     gametime = "2ndhalf"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > home_drive_count - 2:
                     gametime = "2minleft"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
         # Home team has 1 more drive than away team
         if home_drive_count > away_drive_count:
             for x in range(home_drive_count):
@@ -747,31 +756,31 @@ def game_sim(teams, week):
                     gametime = "2ndhalf"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     if x != home_drive_count - 1:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > home_drive_count - 2:     
                     gametime = "2minleft"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     if x != home_drive_count - 1:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     if x != home_drive_count - 1:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
         # Away team has 1 more drive than home team
         if home_drive_count < away_drive_count:
             for x in range(away_drive_count):
@@ -781,54 +790,54 @@ def game_sim(teams, week):
                     if x < (away_drive_count - 1) / 2:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     else:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                         if x!= away_drive_count - 1:
                             possession = "home"
                             print(f'Drive #{x} - possession is {possession}')
-                            drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                            drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > home_drive_count - 2:   
                     gametime = "2minleft"  
                     if x < (away_drive_count - 1) / 2:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     else:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                         if x!= away_drive_count - 1:
                             possession = "home"
                             print(f'Drive #{x} - possession is {possession}')
-                            drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                            drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 # Else, game is still in first half
                 else:   
                     gametime = "1sthalf"  
                     if x < (away_drive_count - 1) / 2:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     else:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                         if x!= away_drive_count - 1:
                             possession = "home"
                             print(f'Drive #{x} - possession is {possession}')
-                            drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                            drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 
 
     # Away team starts with ball
@@ -836,7 +845,7 @@ def game_sim(teams, week):
         # Define how many drives each team will have, with away team receiving ball first
         drive_length = avg_rng(avg_drive)
         drive_variance = random.choice([-1, 0, 1])
-        away_drive_count = math.floor((home_team["team"]["defypg"] / drive_length) * away_team_luck)
+        away_drive_count = math.floor((teams["hometeam"]["defypg"] / drive_length) * away_team_luck)
         # Eliminate outliers
         if away_drive_count > 15:
             away_drive_count = 15
@@ -860,28 +869,28 @@ def game_sim(teams, week):
                     gametime = "2ndhalf"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > away_drive_count - 2:
                     gametime = "2minleft"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
         # Away team has 1 more drive than home team
         if away_drive_count > home_drive_count:
             for x in range(away_drive_count):
@@ -890,31 +899,31 @@ def game_sim(teams, week):
                     gametime = "2ndhalf"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     if x != away_drive_count - 1:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > away_drive_count - 2:     
                     gametime = "2minleft"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     if x != away_drive_count - 1:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
-                    drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                    drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                     if x != away_drive_count - 1:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
         # Home team has 1 more drive than away team
         if away_drive_count < home_drive_count:
             for x in range(home_drive_count):
@@ -924,54 +933,54 @@ def game_sim(teams, week):
                     if x < (home_drive_count - 1) / 2:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     else:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                         if x!= home_drive_count - 1:
                             possession = "away"
                             print(f'Drive #{x} - possession is {possession}')
-                            drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                            drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > away_drive_count - 2:   
                     gametime = "2minleft"  
                     if x < (home_drive_count - 1) / 2:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     else:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                         if x!= home_drive_count - 1:
                             possession = "away"
                             print(f'Drive #{x} - possession is {possession}')
-                            drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                            drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 # Else, game is still in first half
                 else:   
                     gametime = "1sthalf"  
                     if x < (home_drive_count - 1) / 2:
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                     else:
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
-                        drive_start(home_team, gamestate, game_score, gametime, possession, home_team_luck)
+                        drive_start(teams, gamestate, game_score, gametime, possession, home_team_luck)
                         if x!= home_drive_count - 1:
                             possession = "away"
                             print(f'Drive #{x} - possession is {possession}')
-                            drive_start(away_team, gamestate, game_score, gametime, possession, away_team_luck)
+                            drive_start(teams, gamestate, game_score, gametime, possession, away_team_luck)
                 
     print(f'Exiting game_sim function...')
     return
