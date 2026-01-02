@@ -667,16 +667,37 @@ def prestige_luck(team):
             print(f'Exiting prestige_luck function...')
             return prestigeboost
 
-def true_strength(team):
+def true_strength(teams):
     print(f'In true_strength function...')
-    print(f'{team["nameabbr"]}\'s strength of schedule is #{team["sos"]}.')
-    
+    print(f'{teams["hometeam"]["nameabbr"]}\'s strength of schedule is #{teams["hometeam"]["sos"]}.')
+    print(f'{teams["awayteam"]["nameabbr"]}\'s strength of schedule is #{teams["awayteam"]["sos"]}.')
+
     # True strength based off SOS
-    
-    # Update dictionary
+    if teams["hometeam"]["sos"] <= 10:
+        print(f'{teams["hometeam"]["nameabbr"]} will receive a boost to offypg and defypg of 1.15x. The old stats were offypg: {teams["hometeam"]["offypg"]} and defypg: {teams["hometeam"]["defypg"]}')
+        teams["hometeam"]["offypg"] = (teams["hometeam"]["offypg"]) * 1.15
+        teams["hometeam"]["defypg"] = (teams["hometeam"]["defypg"]) * 1.15
+        print(f'The new stats for {teams["hometeam"]["nameabbr"]} are offypg: {teams["hometeam"]["offypg"]} and defypg: {teams["hometeam"]["defypg"]}')
+    elif teams["hometeam"]["sos"] <= 25:
+        print(f'{teams["hometeam"]["nameabbr"]} will receive a boost to offypg and defypg of 1.10x. The old stats were offypg: {teams["hometeam"]["offypg"]} and defypg: {teams["hometeam"]["defypg"]}')
+        teams["hometeam"]["offypg"] = (teams["hometeam"]["offypg"]) * 1.10
+        teams["hometeam"]["defypg"] = (teams["hometeam"]["defypg"]) * 1.10
+        teams["hometeam"]["defypg"] = (teams["hometeam"]["defypg"]) * 1.15
+        print(f'The new stats for {teams["hometeam"]["nameabbr"]} are offypg: {teams["hometeam"]["offypg"]} and defypg: {teams["hometeam"]["defypg"]}')
+
+    if teams["awayteam"]["sos"] <= 10:
+        print(f'{teams["awayteam"]["nameabbr"]} will receive a boost to offypg and defypg of 1.15x. The old stats were offypg: {teams["awayteam"]["offypg"]} and defypg: {teams["awayteam"]["defypg"]}')
+        teams["awayteam"]["offypg"] = (teams["awayteam"]["offypg"]) * 1.15
+        teams["awayteam"]["defypg"] = (teams["awayteam"]["defypg"]) * 1.15
+        print(f'The new stats for {teams["awayteam"]["nameabbr"]} are offypg: {teams["awayteam"]["offypg"]} and defypg: {teams["awayteam"]["defypg"]}')
+    elif teams["awayteam"]["sos"] <= 25:
+        print(f'{teams["awayteam"]["nameabbr"]} will receive a boost to offypg and defypg of 1.10x. The old stats were offypg: {teams["awayteam"]["offypg"]} and defypg: {teams["awayteam"]["defypg"]}')
+        teams["awayteam"]["offypg"] = (teams["awayteam"]["offypg"]) * 1.10
+        teams["awayteam"]["defypg"] = (teams["awayteam"]["defypg"]) * 1.10
+        print(f'The new stats for {teams["awayteam"]["nameabbr"]} are offypg: {teams["awayteam"]["offypg"]} and defypg: {teams["awayteam"]["defypg"]}')
 
     print(f'Exiting true_strength function...')
-    return team
+    return teams
 
 def game_sim(teams, week):
     game_score = [0, 0] # Home team always first value
