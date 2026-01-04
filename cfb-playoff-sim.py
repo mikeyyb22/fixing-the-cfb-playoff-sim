@@ -605,42 +605,52 @@ def drive_start(teams, gamestate, score, gametime, start_drive, possession, luck
         elif gamestate == "fieldgoalmake":
             score[0] = score[0] + 3
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         elif gamestate == "touchdown+pat":
             score[0] = score[0] + 7
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         elif gamestate == "touchdown+nopat":
             score[0] = score[0] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         elif gamestate == "touchdown+2pt":
             score[0] = score[0] + 8
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         elif gamestate == "touchdown+no2pt":
             score[0] = score[0] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         elif gamestate == "safety":
             score[1] = score[1] + 2
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         elif gamestate == "deftd+pat":
             score[1] = score[1] + 7
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         elif gamestate == "deftd+nopat":
             score[1] = score[1] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         elif gamestate == "deftd+2pt":
             score[1] = score[1] + 8
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         elif gamestate == "deftd+no2pt":
             score[1] = score[1] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         else:
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
@@ -653,42 +663,52 @@ def drive_start(teams, gamestate, score, gametime, start_drive, possession, luck
         if gamestate == "fieldgoalmake":
             score[1] = score[1] + 3
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         if gamestate == "touchdown+pat":
             score[1] = score[1] + 7
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         if gamestate == "touchdown+nopat":
             score[1] = score[1] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         if gamestate == "touchdown+2pt":
             score[1] = score[1] + 8
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         if gamestate == "touchdown+no2pt":
             score[1] = score[1] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "score"
             return score, gamestate, start_drive
         if gamestate == "safety":
             score[0] = score[0] + 2
+            gamestate = "score"
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
             return score, gamestate, start_drive
         elif gamestate == "deftd+pat":
             score[0] = score[0] + 7
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         elif gamestate == "deftd+nopat":
             score[0] = score[0] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         elif gamestate == "deftd+2pt":
             score[0] = score[0] + 8
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         elif gamestate == "deftd+no2pt":
             score[0] = score[0] + 6
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
+            gamestate = "defscore"
             return score, gamestate, start_drive
         else:
             print(f'Exiting drive_start function with gamestate {gamestate} and score {score}...')
@@ -1134,27 +1154,39 @@ def game_sim(teams, week):
                 # Is game in 2nd half? 
                 if home_drive_count - 2 > x > home_drive_count / 2:
                     gametime = "2ndhalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > home_drive_count - 2:
                     gametime = "2minleft"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
@@ -1164,30 +1196,42 @@ def game_sim(teams, week):
                 # Is game in 2nd half?
                 if home_drive_count - 2 > x > home_drive_count / 2:     
                     gametime = "2ndhalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                     if x != home_drive_count - 1:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > home_drive_count - 2:     
                     gametime = "2minleft"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                     if x != home_drive_count - 1:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                     if x != home_drive_count - 1:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
@@ -1198,6 +1242,7 @@ def game_sim(teams, week):
                 if home_drive_count - 2 > x > home_drive_count / 2:   
                     gametime = "2ndhalf"  
                     if x < (away_drive_count - 1) / 2:
+                        
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
@@ -1216,17 +1261,25 @@ def game_sim(teams, week):
                 if x > home_drive_count - 2:   
                     gametime = "2minleft"  
                     if x < (away_drive_count - 1) / 2:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                     else:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                         if x!= away_drive_count - 1:
+                            if gamestate == "score":
+                                gamestate = "kickoff"
                             possession = "home"
                             print(f'Drive #{x} - possession is {possession}')
                             drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
@@ -1234,17 +1287,25 @@ def game_sim(teams, week):
                 else:   
                     gametime = "1sthalf"  
                     if x < (away_drive_count - 1) / 2:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                     else:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                         if x!= away_drive_count - 1:
+                            if gamestate == "score":
+                                gamestate = "kickoff"
                             possession = "home"
                             print(f'Drive #{x} - possession is {possession}')
                             game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
@@ -1277,27 +1338,39 @@ def game_sim(teams, week):
                 # Is game in 2nd half?
                 if away_drive_count - 2 > x > away_drive_count / 2:
                     gametime = "2ndhalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > away_drive_count - 2:
                     gametime = "2minleft"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "home"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
@@ -1307,30 +1380,42 @@ def game_sim(teams, week):
                 # Is game in 2nd half?
                 if away_drive_count - 2 > x > away_drive_count / 2:     
                     gametime = "2ndhalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                     if x != away_drive_count - 1:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                 # Last drive? (assumes 2 mins left)
                 if x > away_drive_count - 2:     
                     gametime = "2minleft"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                     if x != away_drive_count - 1:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                 # Else, game is still in first half
                 else:
                     gametime = "1sthalf"
+                    if gamestate == "score":
+                        gamestate = "kickoff"
                     possession = "away"
                     print(f'Drive #{x} - possession is {possession}')
                     game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
                     if x != away_drive_count - 1:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
@@ -1341,17 +1426,25 @@ def game_sim(teams, week):
                 if away_drive_count - 2 > x > away_drive_count / 2:   
                     gametime = "2ndhalf"  
                     if x < (home_drive_count - 1) / 2:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                     else:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                         if x!= home_drive_count - 1:
+                            if gamestate == "score":
+                                gamestate = "kickoff"
                             possession = "away"
                             print(f'Drive #{x} - possession is {possession}')
                             game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
@@ -1359,17 +1452,25 @@ def game_sim(teams, week):
                 if x > away_drive_count - 2:   
                     gametime = "2minleft"  
                     if x < (home_drive_count - 1) / 2:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                     else:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                         if x!= home_drive_count - 1:
+                            if gamestate == "score":
+                                gamestate = "kickoff"
                             possession = "away"
                             print(f'Drive #{x} - possession is {possession}')
                             game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
@@ -1377,17 +1478,25 @@ def game_sim(teams, week):
                 else:   
                     gametime = "1sthalf"  
                     if x < (home_drive_count - 1) / 2:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "away"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                     else:
+                        if gamestate == "score":
+                            gamestate = "kickoff"
                         possession = "home"
                         print(f'Drive #{x} - possession is {possession}')
                         game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, home_team_luck)
                         if x!= home_drive_count - 1:
+                            if gamestate == "score":
+                                gamestate = "kickoff"
                             possession = "away"
                             print(f'Drive #{x} - possession is {possession}')
                             game_score, gamestate, yard_line = drive_start(teams, gamestate, game_score, gametime, yard_line, possession, away_team_luck)
