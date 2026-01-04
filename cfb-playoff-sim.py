@@ -343,6 +343,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             return gamestate, yard_line
                         elif yards_to_go < 0:
                             down_count = 1
+                            yards_to_go = 10
                             continue
                         else:
                             down_count = down_count + 1                            
@@ -359,6 +360,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             return gamestate, yard_line
                         elif yards_to_go < 0:
                             down_count = 1
+                            yards_to_go = 10
                             continue
                         else:
                             down_count = down_count + 1
@@ -375,6 +377,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             return gamestate, yard_line
                         elif yards_to_go < 0:
                             down_count = 1
+                            yards_to_go = 10
                             continue
                         else:
                             gamestate = "downs"
@@ -402,6 +405,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                         return gamestate, yard_line
                     elif yards_to_go < 0:
                         down_count = 1
+                        yards_to_go = 10
                         continue
                     else:
                         down_count = down_count + 1                            
@@ -418,6 +422,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                         return gamestate, yard_line
                     elif yards_to_go < 0:
                         down_count = 1
+                        yards_to_go = 10
                         continue
                     else:
                         down_count = down_count + 1
@@ -434,6 +439,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                         return gamestate, yard_line
                     elif yards_to_go < 0:
                         down_count = 1
+                        yards_to_go = 10
                         continue
                     else:
                         down_count = down_count + 1
@@ -456,6 +462,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                                 return gamestate, yard_line
                             elif yards_to_go < 0:
                                 down_count = 1
+                                yards_to_go = 10
                                 continue
                             else:
                                 down_count = down_count + 1                            
@@ -472,6 +479,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                                 return gamestate, yard_line
                             elif yards_to_go < 0:
                                 down_count = 1
+                                yards_to_go = 10
                                 continue
                             else:
                                 down_count = down_count + 1
@@ -488,6 +496,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                                 return gamestate, yard_line
                             elif yards_to_go < 0:
                                 down_count = 1
+                                yards_to_go = 10
                                 continue
                             else:
                                 gamestate = "downs"
@@ -515,6 +524,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             return gamestate, yard_line
                         elif yards_to_go < 0:
                             down_count = 1
+                            yards_to_go = 10
                             continue
                         else:
                             down_count = down_count + 1                            
@@ -531,6 +541,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             return gamestate, yard_line
                         elif yards_to_go < 0:
                             down_count = 1
+                            yards_to_go = 10
                             continue
                         else:
                             down_count = down_count + 1
@@ -547,6 +558,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             return gamestate, yard_line
                         elif yards_to_go < 0:
                             down_count = 1
+                            yards_to_go = 10
                             continue
                         else:
                             down_count = down_count + 1
