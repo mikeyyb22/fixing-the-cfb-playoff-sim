@@ -10,8 +10,6 @@ avg_drive = [35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]
 avg_scoring_drive = [55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70]
 avg_variance = [-15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5]
 
-user_menu = True
-
 def read_json(year):
     with open(year) as f:
         d = json.load(f)
@@ -525,69 +523,73 @@ def game_sim(teams, week):
     print(f'Exiting game_sim function...')
     return
 
+def main_menu():
+    user_menu = True
+    
+    year_input = input('Choose year (2010 or 2025): ')
+    year_ = f'{year_input}-teams.json'
 
-year_input = input('Choose year (2010 or 2025): ')
-year_ = f'{year_input}-teams.json'
+    globals()[f'playoff_teams_{year_input}'] = read_json(year_)
 
-globals()[f'playoff_teams_{year_input}'] = read_json(year_)
+    # Add prestige rating
+    globals()[f'playoff_teams_{year_input}'] = prestige_calculation(globals()[f'playoff_teams_{year_input}'])
 
-# Add prestige rating
-globals()[f'playoff_teams_{year_input}'] = prestige_calculation(globals()[f'playoff_teams_{year_input}'])
+    # Main menu for 2025 playoff teams
+    while user_menu == True:
+        print(f'1. View Game Schedule')             # Show game schedule and possible matchups
+        print(f'2. All-time Win Percentage')        # Sort by all-time win %
+        print(f'3. Offensive Points Per Game')      # Sort by offensive ppg
+        print(f'4. Offensive Yards Per Game')       # Sort by offensive ypg
+        print(f'5. Defensive Points Per Game')      # Sort by defensive ppg
+        print(f'6. Defensive Yards Per Game')       # Sort by defensive ypg
+        print(f'7. Turnover Margin')                # Sort by turnover margin
+        print(f'8. See prestige rating')            # Sort by prestige rating
+        print(f'9. View json file')                 # View dictionary of playoff teams
+        print(f'10. Start simulation')              # Simulate games in current year
+        print(f'11. End Program')                   # Terminate program
+        user_input = input(f'Please choose one of the options above: ')
 
-# Main menu for 2025 playoff teams
-while user_menu == True:
-    print(f'1. View Game Schedule')             # Show game schedule and possible matchups
-    print(f'2. All-time Win Percentage')        # Sort by all-time win %
-    print(f'3. Offensive Points Per Game')      # Sort by offensive ppg
-    print(f'4. Offensive Yards Per Game')       # Sort by offensive ypg
-    print(f'5. Defensive Points Per Game')      # Sort by defensive ppg
-    print(f'6. Defensive Yards Per Game')       # Sort by defensive ypg
-    print(f'7. Turnover Margin')                # Sort by turnover margin
-    print(f'8. See prestige rating')            # Sort by prestige rating
-    print(f'9. View json file')                 # View dictionary of playoff teams
-    print(f'10. Start simulation')              # Simulate games in current year
-    print(f'11. End Program')                   # Terminate program
-    user_input = input(f'Please choose one of the options above: ')
+        if (user_input == "1"):
+            # Show game schedule and possible matchups
+            games_schedule(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "2"):
+            # Sort by all-time win %
+            win_pctg(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "3"):
+            # Sort by offensive ppg
+            off_ppg(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "4"):
+            # Sort by offensive ypg
+            off_yds(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "5"):
+            # Sort by defensive ppg
+            def_ppg(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "6"):
+            # Sort by defensive ypg
+            def_yds(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "7"):
+            # Sort by turnover margin
+            to_margin(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "8"):
+            # Sort by prestige rating
+            prestige_(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "9"):
+            # View dictionary of playoff teams
+            print(globals()[f'playoff_teams_{year_input}'])
+            continue
+        if (user_input == "10"):
+            bracket_(globals()[f'playoff_teams_{year_input}'])
+            continue
+        else:
+            # Terminate program
+            user_menu = False
 
-    if (user_input == "1"):
-        # Show game schedule and possible matchups
-        games_schedule(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "2"):
-        # Sort by all-time win %
-        win_pctg(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "3"):
-        # Sort by offensive ppg
-        off_ppg(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "4"):
-        # Sort by offensive ypg
-        off_yds(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "5"):
-        # Sort by defensive ppg
-        def_ppg(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "6"):
-        # Sort by defensive ypg
-        def_yds(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "7"):
-        # Sort by turnover margin
-        to_margin(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "8"):
-        # Sort by prestige rating
-        prestige_(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "9"):
-        # View dictionary of playoff teams
-        print(globals()[f'playoff_teams_{year_input}'])
-        continue
-    if (user_input == "10"):
-        bracket_(globals()[f'playoff_teams_{year_input}'])
-        continue
-    else:
-        # Terminate program
-        user_menu = False
+main_menu()

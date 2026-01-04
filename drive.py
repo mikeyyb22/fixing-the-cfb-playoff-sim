@@ -1,25 +1,44 @@
 from rng import *
 
 
-def kickoff_return():
+def kickoff_return(possession):
     print(f'In kickoff_return function...')
     randnum = game_rng()
     print(f'Randnum for kickoff return is {randnum}')
-    # Touchback
-    if randnum <= 0.5:
-        start_drive = 25
-        print(f'Touchback - drive starts at {start_drive} yd line')
-    # Returned kick
-    if 0.98 > randnum >= 0.5:
-        print(f'Kick will be returned. Generating rand_return to get return length...')
-        rand_return = rng()
-        return_length = 30 * rand_return        # Avg return length
-        start_drive = return_length
-        print(f'Kick was returned for {start_drive} yds')
-    # KOR TD
-    if randnum >= 0.98:
-        print(f'Kick was returned for a touchdown')
-        start_drive = 100
+    
+    if possession == "home":
+        # Touchback
+        if randnum <= 0.5:
+            start_drive = 25
+            print(f'Touchback - drive starts at {start_drive} yd line')
+        # Returned kick
+        if 0.98 > randnum >= 0.5:
+            print(f'Kick will be returned. Generating rand_return to get return length...')
+            rand_return = rng()
+            return_length = 30 * rand_return        # Avg return length
+            start_drive = return_length
+            print(f'Kick was returned for {return_length} yds')
+        # KOR TD
+        if randnum >= 0.98:
+            print(f'Kick was returned for a touchdown')
+            start_drive = 100
+
+    if possession == "away":
+        # Touchback
+        if randnum <= 0.5:
+            start_drive = 75
+            print(f'Touchback - drive starts at {start_drive} yd line')
+        # Returned kick
+        if 0.98 > randnum >= 0.5:
+            print(f'Kick will be returned. Generating rand_return to get return length...')
+            rand_return = rng()
+            return_length = 30 * rand_return        # Avg return length
+            print(f'Kick was returned for {return_length} yds')
+            start_drive = 100 - return_length
+        # KOR TD
+        if randnum >= 0.98:
+            print(f'Kick was returned for a touchdown')
+            start_drive = 0
     
     print(f'Exiting kickoff_return function...')
     return start_drive
@@ -319,10 +338,10 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                         play_success = game_rng()
                         if play_success >= 0.9: 
                             play_yards = ((teams["awayteam"]["offypg"] / 60) * luck)
-                            yard_line = yard_line + play_yards
+                            yard_line = yard_line - play_yards
                             yards_to_go = yards_to_go - play_yards
                             print(f'The last play went for {play_yards}. The ball is now on the {yard_line}.')
-                            if yard_line >= 100:
+                            if yard_line <= 0:
                                 gamestate = "touchdown"
                                 print(f'{teams["awayteam"]["nameabbr"]} scored a touchdown')
                                 yard_line = 1
@@ -336,10 +355,10 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                                 continue
                         elif 0.2 <= play_success < 0.9:
                             play_yards = ((teams["awayteam"]["offypg"] / 70) * luck)
-                            yard_line = yard_line + play_yards
+                            yard_line = yard_line - play_yards
                             yards_to_go = yards_to_go - play_yards
                             print(f'The last play went for {play_yards}. The ball is now on the {yard_line}.')
-                            if yard_line >= 100:
+                            if yard_line <= 0:
                                 gamestate = "touchdown"
                                 print(f'{teams["awayteam"]["nameabbr"]} scored a touchdown')
                                 yard_line = 1
@@ -353,10 +372,10 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                                 continue
                         elif play_success < 0.2:
                             play_yards = ((teams["awayteam"]["offypg"] / 85) * luck)
-                            yard_line = yard_line + play_yards
+                            yard_line = yard_line - play_yards
                             yards_to_go = yards_to_go - play_yards
                             print(f'The last play went for {play_yards}. The ball is now on the {yard_line}.')
-                            if yard_line >= 100:
+                            if yard_line <= 0:
                                 gamestate = "touchdown"
                                 print(f'{teams["awayteam"]["nameabbr"]} scored a touchdown')
                                 yard_line = 1
@@ -369,7 +388,7 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                                 gamestate = "downs"
                                 print(f'{teams["awayteam"]["nameabbr"]} did not get first down. Turnover on downs.')
                                 return gamestate, yard_line
-                    elif yard_line >= 60:
+                    elif yard_line <= 40:
                         print(f'{teams["awayteam"]["nameabbr"]} will try for a {100 - yard_line} yard field goal.')
                         gamestate = fieldgoal(luck)
                         return gamestate, yard_line
@@ -381,10 +400,10 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                     play_success = game_rng()
                     if play_success >= 0.9: 
                         play_yards = ((teams["awayteam"]["offypg"] / 60) * luck)
-                        yard_line = yard_line + play_yards
+                        yard_line = yard_line - play_yards
                         yards_to_go = yards_to_go - play_yards
                         print(f'The last play went for {play_yards}. The ball is now on the {yard_line}.')
-                        if yard_line >= 100:
+                        if yard_line <= 0:
                             gamestate = "touchdown"
                             print(f'{teams["awayteam"]["nameabbr"]} scored a touchdown')
                             yard_line = 1
@@ -398,10 +417,10 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             continue
                     elif 0.2 <= play_success < 0.9:
                         play_yards = ((teams["awayteam"]["offypg"] / 70) * luck)
-                        yard_line = yard_line + play_yards
+                        yard_line = yard_line - play_yards
                         yards_to_go = yards_to_go - play_yards
                         print(f'The last play went for {play_yards}. The ball is now on the {yard_line}.')
-                        if yard_line >= 100:
+                        if yard_line <= 0:
                             gamestate = "touchdown"
                             yard_line = 1
                             print(f'{teams["awayteam"]["nameabbr"]} scored a touchdown')
@@ -415,10 +434,10 @@ def drive_result(teams, score, start_drive, gamestate, gametime, possession, luc
                             continue
                     elif play_success < 0.2:
                         play_yards = ((teams["awayteam"]["offypg"] / 85) * luck)
-                        yard_line = yard_line + play_yards
+                        yard_line = yard_line - play_yards
                         yards_to_go = yards_to_go - play_yards
                         print(f'The last play went for {play_yards}. The ball is now on the {yard_line}.')
-                        if yard_line >= 100:
+                        if yard_line <= 0:
                             gamestate = "touchdown"
                             print(f'{teams["awayteam"]["nameabbr"]} scored a touchdown')
                             yard_line = 1
@@ -436,7 +455,7 @@ def drive_start(teams, gamestate, score, gametime, start_drive, possession, luck
 
     # Kickoff / Punt return
     if gamestate == "kickoff":
-        start_drive = kickoff_return()
+        start_drive = kickoff_return(possession)
         if start_drive == 100:      # Drive does not continue if KR TD
             gamestate = pat_2pt(gamestate, score, gametime, possession)
         else:
