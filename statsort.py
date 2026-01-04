@@ -1,5 +1,47 @@
 import decimal
 
+def games_schedule(teams):  #Show schedule
+    print(f'In games_schedule function...')
+    
+    # Create new dictionary with seeds and team abbreviation, then sort by seed
+    seeds = {}
+    for team in teams["teams"]:
+        seeds.update({team["seed"]: team["nameabbr"]})
+    seeds_sorted = dict(sorted(seeds.items()))
+
+    # Print schedule
+    print(f'Week 1 - Play-in Games\n2 weeks after Conference Championships')
+    print(f'{seeds_sorted[20]} @ {seeds_sorted[13]}')
+    print(f'{seeds_sorted[19]} @ {seeds_sorted[14]}')
+    print(f'{seeds_sorted[18]} @ {seeds_sorted[15]}')
+    print(f'{seeds_sorted[17]} @ {seeds_sorted[16]}\n')
+
+    print(f'Week 2 - 1st Round\nWeek of Christmas')
+    print(f'{seeds_sorted[20]}/{seeds_sorted[13]} @ {seeds_sorted[1]}')
+    print(f'{seeds_sorted[19]}/{seeds_sorted[14]} @ {seeds_sorted[2]}')
+    print(f'{seeds_sorted[18]}/{seeds_sorted[15]} @ {seeds_sorted[3]}')
+    print(f'{seeds_sorted[17]}/{seeds_sorted[16]} @ {seeds_sorted[4]}')
+    print(f'{seeds_sorted[12]} @ {seeds_sorted[5]}')
+    print(f'{seeds_sorted[11]} @ {seeds_sorted[6]}')
+    print(f'{seeds_sorted[10]} @ {seeds_sorted[7]}')
+    print(f'{seeds_sorted[9]} @ {seeds_sorted[8]}')
+
+    print(f'Week 3 - Round 2\nNew Years Games')
+    print(f'{seeds_sorted[1]}/{seeds_sorted[13]}/{seeds_sorted[20]} vs {seeds_sorted[8]}/{seeds_sorted[9]} - Orange Bowl')
+    print(f'{seeds_sorted[2]}/{seeds_sorted[14]}/{seeds_sorted[19]} vs {seeds_sorted[7]}/{seeds_sorted[10]} - Sugar Bowl')
+    print(f'{seeds_sorted[3]}/{seeds_sorted[15]}/{seeds_sorted[18]} vs {seeds_sorted[6]}/{seeds_sorted[11]} - Peach Bowl')
+    print(f'{seeds_sorted[4]}/{seeds_sorted[16]}/{seeds_sorted[17]} vs {seeds_sorted[5]}/{seeds_sorted[12]} - Cotton Bowl')
+
+    print(f'Week 4 - Semi-Finals')
+    print(f'{seeds_sorted[1]}/{seeds_sorted[8]}/{seeds_sorted[9]}/{seeds_sorted[13]}/{seeds_sorted[20]} vs {seeds_sorted[4]}/{seeds_sorted[5]}/{seeds_sorted[12]}/{seeds_sorted[16]}/{seeds_sorted[17]}  - Rose Bowl')
+    print(f'{seeds_sorted[2]}/{seeds_sorted[7]}/{seeds_sorted[10]}/{seeds_sorted[14]}/{seeds_sorted[19]} vs {seeds_sorted[3]}/{seeds_sorted[6]}/{seeds_sorted[11]}/{seeds_sorted[15]}/{seeds_sorted[18]}  - Fiesta Bowl')
+
+    print(f'Week 5 - National Championship')
+    print(f'{seeds_sorted[1]}/{seeds_sorted[8]}/{seeds_sorted[9]}/{seeds_sorted[13]}/{seeds_sorted[20]}/{seeds_sorted[4]}/{seeds_sorted[5]}/{seeds_sorted[12]}/{seeds_sorted[16]}/{seeds_sorted[17]} vs {seeds_sorted[2]}/{seeds_sorted[7]}/{seeds_sorted[10]}/{seeds_sorted[14]}/{seeds_sorted[19]}/{seeds_sorted[3]}/{seeds_sorted[6]}/{seeds_sorted[11]}/{seeds_sorted[15]}/{seeds_sorted[18]}')
+
+    print(f'Exiting games_schedule function...')
+
+    return
 
 def win_pctg_calc(teams):
     print(f'In win_pctg_calc function...')
